@@ -1,13 +1,12 @@
 {
-    "prettier.enable": false,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    },
-    "files.associations": {
-      "*.css": "postcss"
-    },
-    "editor.formatOnSave": false,
-    "vue.features.codeActions.enable": false,
-    "vue.codeActions.enabled": false
-  }
-  
+  "prettier.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "editor.formatOnSave": false,
+  "vue.features.codeActions.enable": false,
+  "vue.codeActions.enabled": false
+}

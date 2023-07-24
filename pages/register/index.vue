@@ -159,7 +159,6 @@ function getUserLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
       location.value = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`
-      console.log(location.value)
     })
   }
   else {
@@ -204,8 +203,6 @@ async function onFileSelected(event: Event) {
   }
 
   selectedFile.value = target.files
-  console.log(selectedFile.value)
-  console.log(typeof selectedFile)
 
   const imageUrl = []
   for (const imageFile of target.files) {
@@ -419,11 +416,11 @@ function handleDaysOfOperation(day: string) {
             Choose a county
           </option>
           <option
-            v-for="(county, index) in counties
+            v-for="(counti, index) in counties
             " :key="index"
-            :value="`${county}`"
+            :value="`${counti}`"
           >
-            {{ county }}
+            {{ counti }}
           </option>
         </select>
         <p class="py-3 text-gray-400">

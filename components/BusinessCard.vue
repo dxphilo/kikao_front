@@ -8,12 +8,6 @@ withDefaults(
   }>(),
   {},
 )
-
-const truncated = ref<boolean>(true)
-
-function toggleTruncated() {
-  truncated.value = !truncated.value
-}
 </script>
 
 <template>
