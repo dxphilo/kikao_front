@@ -47,7 +47,6 @@ async function send_data() {
         'Content-Type': 'application/json',
       },
     })
-    console.log(phone_number)
     toast.success('Account successfully saved')
   }
   catch (error) {
