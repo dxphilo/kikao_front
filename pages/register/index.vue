@@ -110,7 +110,7 @@ function handleNext() {
     return
   }
   if (step.value === 5 && (!businessName.value || !county.value || !town.value)) {
-  // TODO: Toast not business name or county or town
+    // TODO: Toast not business name or county or town
     if (!businessName.value) {
       toast.info('Please enter business name')
       return
