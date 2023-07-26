@@ -26,12 +26,12 @@ function verifyPhoneNumber() {
     toast.warning('Ten digit telephone number is required')
     return
   }
-  localStorage.setItem('phone_number', telNumber.value)
+  window.localStorage.setItem('phone_number', telNumber.value)
   signIn('google')
 }
 async function send_data() {
   const BASE_URL = `${config.public.BASE_URL}users/`
-  const phone_number = localStorage.getItem('phone_number')
+  const phone_number = window.localStorage.getItem('phone_number')
   if (!phone_number)
     toast.info('No phone number provided')
 
@@ -52,7 +52,7 @@ async function send_data() {
   catch (error) {
     handleError(error)
   }
-  localStorage.removeItem('phone_number')
+  window.localStorage.removeItem('phone_number')
   router.push('/')
 }
 </script>

@@ -5,7 +5,7 @@ import { categories } from '~/config/categories'
 <template>
   <div class="mx-auto w-3/5 py-10">
     <div class="py-10 text-center">
-      <h1 class="text-center text-5xl font-extrabold leading-snug tracking-wide text-slate-900">
+      <h1 class="text-center text-5xl font-medium leading-snug tracking-wide text-slate-900">
         Categories
       </h1>
       <p class="pt-4 text-center text-lg font-light text-gray-500 dark:text-gray-400">

@@ -5,7 +5,7 @@ import { reviewers } from '~/config/reviewers'
 <template>
   <div class="w-full flex object-cover">
     <div class="mx-auto w-full pt-28 lg:w-3/5">
-      <h1 class="text-center text-3xl font-extrabold leading-snug tracking-wide text-slate-900 lg:text-6xl md:text-4xl">
+      <h1 class="text-center text-3xl font-medium leading-snug tracking-wide text-slate-900 lg:text-6xl md:text-4xl">
         Discover Great Products, <br> Services, and Businesses
       </h1>
       <p class="leading[20px] !important whitespace-pre-line pt-8 text-center font-light text-gray-500 sm:text-lg dark:text-gray-400">

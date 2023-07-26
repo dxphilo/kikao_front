@@ -5,8 +5,8 @@ import CheckCircleIcon from './icons/CheckCircleIcon.vue'
 <template>
   <div class="mx-auto w-3/5">
     <div class="py-10">
-      <h1 class="text-center text-5xl font-bold text-[#222222]">
-        Why You Should Join Kikao
+      <h1 class="text-center text-5xl font-medium text-[#222222]">
+        Why you should join us
       </h1>
       <p class="pt-4 text-center text-base font-light text-gray-500 dark:text-gray-400">
         Let your customers be your best brand ambassadors
