@@ -23,7 +23,7 @@ const indexStore = useRootStore()
 const router = useRouter()
 const config = useRuntimeConfig()
 
-const step = ref<number>(0)
+const step = ref<number>(2)
 const business = ref<string>('')
 const businesstype = ref<string>('')
 const location = ref<string>('')
@@ -171,7 +171,7 @@ function getUserLocation() {
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
-    maximumAge: 60000,
+    maximumAge: 300000,
   }
 
   function success(position: any) {
@@ -462,6 +462,10 @@ function resetFormValues() {
             class="mx-10 w-full flex flex-col cursor-pointer items-center justify-center border-2 border-gray-300 rounded-lg border-dashed bg-gray-50 md:mx-0 hover:bg-gray-100"
           >
             <div class="flex flex-col items-center justify-center py-4">
+<<<<<<< HEAD
+=======
+              <IconsUpload />
+>>>>>>> e6c2f3d (fix: refactors + footer adjustments)
               <input
                 id="dropzone-file" type="file" class="hidden" accept="image/jpeg, image/png" name="kikaoimage"
                 multiple @change="onFileSelected"
@@ -547,7 +551,10 @@ function resetFormValues() {
               <span class="text-sm">Kenya (+254)</span>
             </span>
             <input
+<<<<<<< HEAD
               v-model="telephoneNumber"
+=======
+>>>>>>> e6c2f3d (fix: refactors + footer adjustments)
               type="text"
               class="w-full flex-1 border border-gray-300 rounded-none rounded-r-lg bg-gray-50 p-1.5 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500"
               placeholder="Enter telephone number"
@@ -639,10 +646,14 @@ function resetFormValues() {
         type="submit" class="rounded-md bg-black px-12 py-2.5 text-center text-xl text-white"
         @click=" step === 7 ? publish() : handleNext()"
       >
+<<<<<<< HEAD
         <IconsLoading v-if="loading" />
         <p v-else>
           {{ step < 7 ? ` Next` : ` Publish` }}
         </p>
+=======
+        {{ step < 7 ? ` Next` : ` Publish` }}
+>>>>>>> e6c2f3d (fix: refactors + footer adjustments)
       </button>
     </div>
   </div>

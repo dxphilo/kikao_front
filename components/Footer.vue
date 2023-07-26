@@ -20,7 +20,15 @@ const resources = [
   },
   {
     name: 'Businesses',
-    link: '/category',
+    link: '/businesses',
+  },
+  {
+    name: 'Customers',
+    link: '/customers',
+  },
+  {
+    name: 'Careers',
+    link: '/careers',
   },
 ]
 
@@ -31,7 +39,7 @@ const product = [
   },
   {
     name: 'Blog',
-    link: '/articles',
+    link: '/blog',
   },
   {
     name: 'Team',
@@ -51,6 +59,14 @@ const Help = [
   {
     name: 'FAQ\'\s',
     link: '/faq',
+  },
+  {
+    name: 'Report',
+    link: '/issues',
+  },
+  {
+    name: 'Github',
+    link: '/github',
   },
 ]
 </script>
