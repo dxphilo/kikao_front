@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { useToast } from 'vue-toastification'
 import axios from 'axios'
+import { useHead } from 'unhead'
 import GoogleIcon from '~/components/icons/GoogleIcon.vue'
 import { handleError } from '~/utils/error'
+
+useHead({
+  title: 'Signup - Kikao',
+})
 
 const config = useRuntimeConfig()
 
@@ -30,7 +35,7 @@ function verifyPhoneNumber() {
   signIn('google')
 }
 async function send_data() {
-  const BASE_URL = `${config.public.BASE_URL}users/`
+  const BASE_URL = `${config.public.BASE_URL}/users/`
   const phone_number = window.localStorage.getItem('phone_number')
   if (!phone_number)
     toast.info('No phone number provided')
@@ -42,12 +47,13 @@ async function send_data() {
     picture: data.value?.user?.image,
   }
   try {
-    await axios.post(BASE_URL, body_data, {
+    const res = await axios.post(BASE_URL, body_data, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    toast.success('Account successfully saved')
+    window.localStorage.setItem('kikao_token', res.data.access_token)
+    toast.success(`Hi ${res.data.user_name}, your account was successfully created`)
   }
   catch (error) {
     handleError(error)
@@ -104,7 +110,6 @@ async function send_data() {
       </a>|
       <a href="privacy" class="text-green-400 hover:underline hover:underline-offset-8">
         Privacy policy
-
       </a>
     </div>
   </div>

@@ -1,5 +1,10 @@
 <script setup>
+import { useHead } from 'unhead'
 import CheckIcon from '~/components/icons/CheckIcon.vue'
+
+useHead({
+  title: 'Pricing - Kikao',
+})
 
 const plans = [
   {

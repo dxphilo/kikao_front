@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { useHead } from 'unhead'
 import type { Person } from '@/types/'
 import TeamMember from '~/components/Team/TeamMember.vue'
+
+useHead({
+  title: 'Team - Kikao',
+})
 
 const teamMembers: Person[] = [
   {

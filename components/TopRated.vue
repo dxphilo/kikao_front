@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { businesses as Biz } from '~/constants'
+import { useBusinessesStore } from '~/store/businesses'
 
-const businesses = ref(Biz)
+const businessStore = useBusinessesStore()
 
-const businessChunks = computed(() => {
-  return businesses.value.slice(0, 6)
-})
+const businessChunks = computed(() => businessStore.$state.businesses.slice(0, 6))
 
 // methods
 </script>

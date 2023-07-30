@@ -4,19 +4,16 @@ export const useRootStore = defineStore('rootStore', {
   state: () => {
     return {
       user_info: {
+        id: 'john_philip',
 
       },
     }
   },
   actions: {
     toggleShowAddPopup() {
-      this.show_add_popup = !this.show_add_popup
     },
 
   },
   getters: {
-    addPopupState: (state) => {
-      return state.show_add_popup
-    },
   },
 })

@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useToast } from 'vue-toastification'
+import { useHead } from 'unhead'
+import axios from 'axios'
 import Location from '@/components/icons/Location.vue'
 import Delete from '@/components/icons/Delete.vue'
 import PhotosIcon from '@/components/icons/PhotosIcon.vue'
@@ -9,10 +11,19 @@ import { businessTypes } from '~/config/businesstype'
 import { amenities } from '~/config/amenities'
 import { counties } from '~/utils/counties'
 import { daysOfTheWeek } from '~/constants/days'
+import { handleError } from '~/utils/error'
+import { useRootStore } from '~/store/user'
+
+useHead({
+  title: 'Register - Kikao',
+})
 
 const toast = useToast()
+const indexStore = useRootStore()
+const router = useRouter()
+const config = useRuntimeConfig()
 
-const step = ref<number>(2)
+const step = ref<number>(0)
 const business = ref<string>('')
 const businesstype = ref<string>('')
 const location = ref<string>('')
@@ -27,6 +38,7 @@ const openingHours = ref<string>('')
 const closingHours = ref<string>('')
 const county = ref<string>('')
 const town = ref<string>('')
+const loading = ref<boolean>(false)
 
 const localBusiness = ref({
   name: businessName.value,
@@ -159,7 +171,7 @@ function getUserLocation() {
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
-    maximumAge: 300000,
+    maximumAge: 60000,
   }
 
   function success(position: any) {
@@ -232,9 +244,53 @@ function handleBack() {
   if (step.value > 0)
     step.value--
 }
-function publish() {
-  // TODO: Send business info to backend and toast message
-  toast.success('You have successfully published your business on Kikao')
+
+async function publish() {
+  const access_token = window.localStorage.getItem('kikao_token')
+  const headers = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${access_token}`,
+    },
+  }
+
+  loading.value = true
+
+  try {
+    const business_url = `${config.public.BASE_URL}/businesses/`
+
+    const formData = new FormData()
+
+    formData.append('name', businessName.value)
+    formData.append('handle', businessName.value)
+    formData.append('location', location.value)
+    formData.append('opening', openingHours.value)
+    formData.append('closing', closingHours.value)
+    formData.append('business_description', businesstype.value)
+    formData.append('telephone_number', telephoneNumber.value)
+    formData.append('category', business.value)
+    formData.append('user_id', indexStore.$state.user_info.id)
+
+    for (let i = 0; i < selectedAmenities.value.length; ++i)
+      formData.append('amenities', selectedAmenities.value[i])
+
+    for (let j = 0; j < selectedFile.value.length; ++j)
+      formData.append('images', selectedFile.value[j])
+
+    const response = await axios.post(`${business_url}`, formData, headers)
+    const data = await response.data
+    if (data.status === '201') {
+      toast.success(`Your business ${businessName.value} has been published on Kikao`)
+      resetFormValues()
+      router.push('/')
+    }
+  }
+  catch (error) {
+    handleError(error)
+  }
+  finally {
+    loading.value = false
+  }
 }
 
 function handleDaysOfOperation(day: string) {
@@ -247,6 +303,24 @@ function handleDaysOfOperation(day: string) {
   else {
     daysOfOperation.value.push(day)
   }
+}
+
+function resetFormValues() {
+  step.value = 0
+  business.value = ''
+  businesstype.value = ''
+  location.value = ''
+  selectedAmenities.value = []
+  selectedFile.value = null
+  previewImages.value = []
+  businessName.value = ''
+  telephoneNumber.value = ''
+  businessDescription.value = ''
+  daysOfOperation.value = []
+  openingHours.value = ''
+  closingHours.value = ''
+  county.value = ''
+  town.value = ''
 }
 </script>
 
@@ -388,7 +462,6 @@ function handleDaysOfOperation(day: string) {
             class="mx-10 w-full flex flex-col cursor-pointer items-center justify-center border-2 border-gray-300 rounded-lg border-dashed bg-gray-50 md:mx-0 hover:bg-gray-100"
           >
             <div class="flex flex-col items-center justify-center py-4">
-              <IconsUpload />
               <input
                 id="dropzone-file" type="file" class="hidden" accept="image/jpeg, image/png" name="kikaoimage"
                 multiple @change="onFileSelected"
@@ -474,6 +547,7 @@ function handleDaysOfOperation(day: string) {
               <span class="text-sm">Kenya (+254)</span>
             </span>
             <input
+              v-model="telephoneNumber"
               type="text"
               class="w-full flex-1 border border-gray-300 rounded-none rounded-r-lg bg-gray-50 p-1.5 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500"
               placeholder="Enter telephone number"
@@ -565,7 +639,10 @@ function handleDaysOfOperation(day: string) {
         type="submit" class="rounded-md bg-black px-12 py-2.5 text-center text-xl text-white"
         @click=" step === 7 ? publish() : handleNext()"
       >
-        {{ step < 7 ? ` Next` : ` Publish` }}
+        <IconsLoading v-if="loading" />
+        <p v-else>
+          {{ step < 7 ? ` Next` : ` Publish` }}
+        </p>
       </button>
     </div>
   </div>

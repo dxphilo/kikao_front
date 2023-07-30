@@ -22,7 +22,7 @@ withDefaults(
       </p>
       <ul class="flex space-x-1">
         <li class="h-8 w-8 flex cursor-pointer items-center justify-center rounded-full hover:border hover:bg-gray-200">
-          <a :href="profile.twitter" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-[#00acee] hover:text-gray-900 dark:hover:text-white">
+          <a :href="profile.twitter" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-black hover:text-gray-900 dark:hover:text-white">
             <IconsSocialsTwitter />
           </a>
         </li>
@@ -32,7 +32,7 @@ withDefaults(
           </a>
         </li>
         <li class="h-8 w-8 flex cursor-pointer items-center justify-center rounded-full hover:border hover:bg-gray-300">
-          <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="text-[#ea4c89] hover:text-gray-900 dark:hover:text-white">
+          <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-900 dark:hover:text-white">
             <IconsSocialsWebsite />
           </a>
         </li>

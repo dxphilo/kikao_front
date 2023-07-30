@@ -6,7 +6,7 @@ const socials = [
   { name: 'Facebook', link: 'https://www.facebook.com/kikaohq' },
   { name: 'LinkedIn', link: 'https://www.linkedin.com/kikaohq' },
   { name: 'TikTok', link: 'https://www.tiktok.com/kikaohq' },
-  { name: 'YouTube', link: 'https://www.youtube.com/kikaohq' },
+  { name: 'YouTube', link: 'https://www.youtube.com/@kikaohq' },
 ]
 
 const resources = [
@@ -20,15 +20,7 @@ const resources = [
   },
   {
     name: 'Businesses',
-    link: '/businesses',
-  },
-  {
-    name: 'Customers',
-    link: '/customers',
-  },
-  {
-    name: 'Careers',
-    link: '/careers',
+    link: '/category',
   },
 ]
 
@@ -39,19 +31,11 @@ const product = [
   },
   {
     name: 'Blog',
-    link: '/blog',
+    link: '/articles',
   },
   {
     name: 'Team',
     link: '/team',
-  },
-  {
-    name: 'Docs',
-    link: '/docs',
-  },
-  {
-    name: 'Changelog',
-    link: '/changelog',
   },
 ]
 
@@ -67,14 +51,6 @@ const Help = [
   {
     name: 'FAQ\'\s',
     link: '/faq',
-  },
-  {
-    name: 'Report',
-    link: '/issues',
-  },
-  {
-    name: 'Github',
-    link: '/github',
   },
 ]
 </script>

@@ -29,6 +29,7 @@ export function handleError(error: any) {
     toast.error('No response received from the server.')
   }
   else {
+    console.warn(error)
     // A different error occurred here
     toast.error('An unexpected error occurred:')
   }

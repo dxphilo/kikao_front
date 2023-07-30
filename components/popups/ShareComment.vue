@@ -106,11 +106,11 @@ function shareOnPinterest() {
             <div class="w-full border border border-gray-300 rounded-lg p-5">
               <div class="fle-row flex justify-between pt-2">
                 <div class="flex items-center gap-x-4">
-                  <img class="h-12 w-12 cursor-pointer rounded-full bg-cover object-cover" :src="`${review.image}`" alt="Kikao reviewr avatar image" loading="eager">
+                  <img class="h-12 w-12 cursor-pointer rounded-full bg-cover object-cover" :src="`${review.user.photo}`" alt="Kikao reviewr avatar image" loading="eager">
                   <div>
                     <div class="flex items-center justify-between">
                       <h1 class="text-[14px] font-semibold">
-                        {{ review.name }}
+                        {{ review.user.full_name }}
                       </h1>
                     </div>
                     <div class="flex items-center pt-1">
@@ -126,8 +126,8 @@ function shareOnPinterest() {
                   </div>
                 </div>
                 <div class="flex items-center gap-x-4">
-                  <p class="text-[14px] text-gray-400">
-                    {{ formatDate(review.createdAt) }}
+                  <p class="text-[14px] font-light text-gray-400">
+                    {{ formatDate(review.created_at) }}
                   </p>
                 </div>
               </div>

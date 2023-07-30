@@ -14,7 +14,7 @@ const articles: Article[] = await queryContent('articles').sort({ createdAt: 1 }
 <template>
   <div>
     <div class="pt-24">
-      <h1 class="block text-center text-6xl font-bold text-[#222222]">
+      <h1 class="block text-center text-5xl font-bold text-[#222222]">
         Kikao Blog
       </h1>
       <p class="pt-6 text-center text-lg font-light text-gray-500 dark:text-gray-400">

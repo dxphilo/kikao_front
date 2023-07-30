@@ -1,8 +1,66 @@
 <script setup lang="ts">
+import { useHead } from 'unhead'
+import { useToast } from 'vue-toastification'
+import axios from 'axios'
+import GoogleIcon from '~/components/icons/GoogleIcon.vue'
+
+const { status, signIn, data } = useAuth()
+const config = useRuntimeConfig()
+const router = useRouter()
+
+useHead({
+  title: 'Login - Kikao',
+})
+
+const toast = useToast()
+const authStatus = computed(() => status.value)
+
+if (authStatus.value === 'authenticated')
+  login_user()
+
+function logIn() {
+  signIn('google')
+}
+
+async function login_user() {
+  const BASE_URL = `${config.public.BASE_URL}/login/`
+
+  const body_data = {
+    fullname: data.value?.user?.name,
+    email: data.value?.user?.email,
+  }
+  try {
+    await axios.post(BASE_URL, body_data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    toast.success('Account successfully saved')
+  }
+  catch (error) {
+    handleError(error)
+  }
+  window.localStorage.removeItem('phone_number')
+  router.push('/')
+}
 </script>
 
 <template>
-  <div class="mx-auto min-h-screen w-1/5 text-[14px] leading-6">
-    <p>this is a comment here</p>
+  <div v-if="status === 'unauthenticated'" class="h-[500px]">
+    <div class="w-full pt-46 text-[14px] leading-6 text-black md:mx-auto md:w-[400px] md:px-0">
+      <div class="w-full flex items-center justify-center pb-6">
+        <h1 class="text-3xl font-semibold">
+          Log in to Kikao
+        </h1>
+      </div>
+      <button
+        type="submit"
+        class="mt-10 block w-full flex cursor-pointer items-center justify-center gap-x-4 rounded-md bg-gray-200 px-10 py-4 text-center text-lg hover:bg-gray-300"
+        @click="logIn()"
+      >
+        <GoogleIcon />
+        <p>Continue with Google</p>
+      </button>
+    </div>
   </div>
 </template>
