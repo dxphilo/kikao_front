@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useToast } from 'vue-toastification'
+import { useHead } from 'unhead'
+import axios from 'axios'
 import Location from '@/components/icons/Location.vue'
 import Delete from '@/components/icons/Delete.vue'
 import PhotosIcon from '@/components/icons/PhotosIcon.vue'
@@ -9,8 +11,17 @@ import { businessTypes } from '~/config/businesstype'
 import { amenities } from '~/config/amenities'
 import { counties } from '~/utils/counties'
 import { daysOfTheWeek } from '~/constants/days'
+import { handleError } from '~/utils/error'
+import { useRootStore } from '~/store/user'
+
+useHead({
+  title: 'Register - Kikao',
+})
 
 const toast = useToast()
+const indexStore = useRootStore()
+const router = useRouter()
+const config = useRuntimeConfig()
 
 const step = ref<number>(0)
 const business = ref<string>('')
@@ -27,6 +38,7 @@ const openingHours = ref<string>('')
 const closingHours = ref<string>('')
 const county = ref<string>('')
 const town = ref<string>('')
+const loading = ref<boolean>(false)
 
 const localBusiness = ref({
   name: businessName.value,
@@ -156,15 +168,24 @@ function handleBiz(name: string): void {
 }
 
 function getUserLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      location.value = `Lat: ${position.coords.latitude}, Lng: ${position.coords.longitude}`
-    })
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 60000,
   }
-  else {
-    toast.info('Geolocation is not supported by this browser.')
+
+  function success(position: any) {
+    const crd = position.coords
+    location.value = `Lat: ${crd.latitude}, Lng: ${crd.longitude}`
   }
+
+  function error(error: any) {
+    toast.error(`ERROR(${error.code}): ${error.message}`)
+  }
+
+  window.navigator.geolocation.getCurrentPosition(success, error, options)
 }
+
 function handleAmenity(name: string) {
   if (!name) {
     toast.info('Please provide amenity')
@@ -223,9 +244,53 @@ function handleBack() {
   if (step.value > 0)
     step.value--
 }
-function publish() {
-  // TODO: Send business info to backend and toast message
-  toast.success('You have successfully published your business on Kikao')
+
+async function publish() {
+  const access_token = window.localStorage.getItem('kikao_token')
+  const headers = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${access_token}`,
+    },
+  }
+
+  loading.value = true
+
+  try {
+    const business_url = `${config.public.BASE_URL}/businesses/`
+
+    const formData = new FormData()
+
+    formData.append('name', businessName.value)
+    formData.append('handle', businessName.value)
+    formData.append('location', location.value)
+    formData.append('opening', openingHours.value)
+    formData.append('closing', closingHours.value)
+    formData.append('business_description', businesstype.value)
+    formData.append('telephone_number', telephoneNumber.value)
+    formData.append('category', business.value)
+    formData.append('user_id', indexStore.$state.user_info.id)
+
+    for (let i = 0; i < selectedAmenities.value.length; ++i)
+      formData.append('amenities', selectedAmenities.value[i])
+
+    for (let j = 0; j < selectedFile.value.length; ++j)
+      formData.append('images', selectedFile.value[j])
+
+    const response = await axios.post(`${business_url}`, formData, headers)
+    const data = await response.data
+    if (data.status === '201') {
+      toast.success(`Your business ${businessName.value} has been published on Kikao`)
+      resetFormValues()
+      router.push('/')
+    }
+  }
+  catch (error) {
+    handleError(error)
+  }
+  finally {
+    loading.value = false
+  }
 }
 
 function handleDaysOfOperation(day: string) {
@@ -239,6 +304,24 @@ function handleDaysOfOperation(day: string) {
     daysOfOperation.value.push(day)
   }
 }
+
+function resetFormValues() {
+  step.value = 0
+  business.value = ''
+  businesstype.value = ''
+  location.value = ''
+  selectedAmenities.value = []
+  selectedFile.value = null
+  previewImages.value = []
+  businessName.value = ''
+  telephoneNumber.value = ''
+  businessDescription.value = ''
+  daysOfOperation.value = []
+  openingHours.value = ''
+  closingHours.value = ''
+  county.value = ''
+  town.value = ''
+}
 </script>
 
 <template>
@@ -249,21 +332,27 @@ function handleDaysOfOperation(day: string) {
         <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
           What's your business category?
         </h1>
-        <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+        <p
+          class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        >
           Select what best describes your business
         </p>
       </div>
 
       <div class="flex flex-wrap items-center justify-center gap-5 py-7">
         <button
-          v-for="(category, index) in categories" :key="index" class="w-[200px] flex flex-col items-center border border-gray-200 rounded-lg py-7 hover:border-gray-900" :class="business === category.icon ? `border-2 bg-gray-100 border-gray-900` : ` `"
+          v-for="(category, index) in categories" :key="index"
+          class="w-[200px] flex flex-col items-center border border-gray-200 rounded-lg py-7 hover:border-gray-900"
+          :class="business === category.icon ? `border-2 bg-gray-100 border-gray-900` : ` `"
           @click="handleSelected(category.icon)"
         >
           <div class="flex items-center justify-center">
             <component :is="category.iconComponent" class="h-10 w-10" />
           </div>
 
-          <p class="leading[20px] !important inline-flex whitespace-pre-line pt-5 text-center text-[16px] font-light text-gray-500">
+          <p
+            class="leading[20px] !important inline-flex whitespace-pre-line pt-5 text-center text-[16px] font-light text-gray-500"
+          >
             {{ category.name }}
           </p>
         </button>
@@ -274,18 +363,24 @@ function handleDaysOfOperation(day: string) {
       <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
         What do your business offers
       </h1>
-      <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+      <p
+        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+      >
         Select what your business setup looks like
       </p>
       <div class="flex flex-wrap justify-center gap-x-4 gap-y-5 py-7">
         <button
-          v-for="(biz, index) in businessTypes" :key="index" class="w-[200px] border border-gray-200 rounded-lg px-4 py-5 hover:border-gray-900" :class="businesstype === biz.name ? `  border-2 bg-gray-100 border-gray-900` : ` `"
+          v-for="(biz, index) in businessTypes" :key="index"
+          class="w-[200px] border border-gray-200 rounded-lg px-4 py-5 hover:border-gray-900"
+          :class="businesstype === biz.name ? `  border-2 bg-gray-100 border-gray-900` : ` `"
           @click="handleBiz(biz.name)"
         >
           <div class="flex items-center justify-center pb-4">
             <component :is="biz.iconComponent" class="h-10 w-10 text-black" />
           </div>
-          <p class="leading[20px] !important inline-flex whitespace-pre-line py-3 text-center text-[16px] font-light text-gray-500">
+          <p
+            class="leading[20px] !important inline-flex whitespace-pre-line py-3 text-center text-[16px] font-light text-gray-500"
+          >
             {{ biz.name }}
           </p>
         </button>
@@ -296,7 +391,9 @@ function handleDaysOfOperation(day: string) {
       <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
         Where's your business located?
       </h1>
-      <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+      <p
+        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+      >
         Make it easy for customers to find your business.
       </p>
       <div class="my-20 h-80 w-4/5 flex items-center justify-center border-3 rounded-xl border-dotted md:w-full">
@@ -308,13 +405,14 @@ function handleDaysOfOperation(day: string) {
       <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
         What amenities do you offer?
       </h1>
-      <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+      <p
+        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+      >
         Let customers know what your business offers
       </p>
       <div class="flex flex-wrap justify-center gap-4 py-7">
         <button
-          v-for="(amenity, index) in amenities"
-          :key="index"
+          v-for="(amenity, index) in amenities" :key="index"
           class="w-[200px] flex flex-col items-center justify-center border border-gray-200 rounded-lg px-4 py-7 hover:border-gray-900"
           :class="selectedAmenities.find((selected) => selected === amenity.name) ? 'border-2 bg-gray-100 border-gray-900' : ''"
           @click="handleAmenity(amenity.name)"
@@ -333,7 +431,9 @@ function handleDaysOfOperation(day: string) {
       <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
         Add some photos of your business
       </h1>
-      <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+      <p
+        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+      >
         Ensure your photos are well-lit and at least 5 photos.
       </p>
       <div class="flex flex-wrap gap-4 py-7">
@@ -341,8 +441,7 @@ function handleDaysOfOperation(day: string) {
         <div class="mb-5 flex flex-wrap gap-y-2">
           <div v-for="(image, index) in previewImages" :key="index">
             <img
-              :src="image"
-              class="mb-1 mr-2 h-24 w-32 cursor-pointer border border-gray-100 rounded object-cover"
+              :src="image" class="mb-1 mr-2 h-24 w-32 cursor-pointer border border-gray-100 rounded object-cover"
               srcset=""
             >
             <div class="mt-2">
@@ -362,18 +461,10 @@ function handleDaysOfOperation(day: string) {
             for="dropzone-file"
             class="mx-10 w-full flex flex-col cursor-pointer items-center justify-center border-2 border-gray-300 rounded-lg border-dashed bg-gray-50 md:mx-0 hover:bg-gray-100"
           >
-            <div
-              class="flex flex-col items-center justify-center py-4"
-            >
-              <IconsUpload />
+            <div class="flex flex-col items-center justify-center py-4">
               <input
-                id="dropzone-file"
-                type="file"
-                class="hidden"
-                accept="image/jpeg, image/png"
-                name="kikaoimage"
-                multiple
-                @change="onFileSelected"
+                id="dropzone-file" type="file" class="hidden" accept="image/jpeg, image/png" name="kikaoimage"
+                multiple @change="onFileSelected"
               >
               <div class="flex flex-col items-center py-2 text-center text-gray-700">
                 <PhotosIcon class="" />
@@ -390,10 +481,14 @@ function handleDaysOfOperation(day: string) {
       </div>
     </div>
     <div v-if="step === 5" class="w-full text-center md:text-left">
-      <h1 class="text-center text-3xl font-normal leading-[36px] tracking-normal text-slate-900 md:text-left md:text-[32px]">
+      <h1
+        class="text-center text-3xl font-normal leading-[36px] tracking-normal text-slate-900 md:text-left md:text-[32px]"
+      >
         Give your business a name and handle
       </h1>
-      <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+      <p
+        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+      >
         Remember you can change these details later.
       </p>
       <div class="ml-10 py-4 text-start md:ml-0">
@@ -403,7 +498,10 @@ function handleDaysOfOperation(day: string) {
         <p class="py-2 text-gray-400">
           i.e Pauls backery
         </p>
-        <input id="" v-model="businessName" type="text" name="" placeholder="Name of your business" class="w-4/5 border border-gray-300 rounded px-6 py-3 md:w-full">
+        <input
+          id="" v-model="businessName" type="text" name="" placeholder="Name of your business"
+          class="w-4/5 border border-gray-300 rounded px-6 py-3 md:w-full"
+        >
 
         <p class="pt-3 text-[18px] leading-[24px]">
           Enter County and Town
@@ -411,14 +509,16 @@ function handleDaysOfOperation(day: string) {
         <p class="py-2 text-gray-400">
           Select an option
         </p>
-        <select id="countries" v-model="county" class="block w-full border border-gray-300 rounded bg-gray-50 px-6 py-3 text-sm text-gray-900">
+        <select
+          id="countries" v-model="county"
+          class="block w-full border border-gray-300 rounded bg-gray-50 px-6 py-3 text-sm text-gray-900"
+        >
           <option selected>
             Choose a county
           </option>
           <option
             v-for="(counti, index) in counties
-            " :key="index"
-            :value="`${counti}`"
+            " :key="index" :value="`${counti}`"
           >
             {{ counti }}
           </option>
@@ -426,7 +526,10 @@ function handleDaysOfOperation(day: string) {
         <p class="py-3 text-gray-400">
           Enter Town or City
         </p>
-        <input id="" v-model="town" type="text" name="" class="w-4/5 border border-gray-300 rounded px-6 py-3 md:w-full" placeholder="Your town or city">
+        <input
+          id="" v-model="town" type="text" name="" class="w-4/5 border border-gray-300 rounded px-6 py-3 md:w-full"
+          placeholder="Your town or city"
+        >
         <div class="flex flex-col pt-2">
           <p class="text-[18px] leading-[24px]">
             Enter your business number
@@ -437,11 +540,18 @@ function handleDaysOfOperation(day: string) {
         </div>
         <div class="w-4/5 flex items-center justify-center text-center md:w-full">
           <div class="w-full flex">
-            <span class="flex flex-col overflow-hidden border border-r-0 border-gray-300 rounded-l-md px-3 py-2 text-gray-900">
+            <span
+              class="flex flex-col overflow-hidden border border-r-0 border-gray-300 rounded-l-md px-3 py-2 text-gray-900"
+            >
               <span class="text-[12px] text-gray-400">Country/Region</span>
               <span class="text-sm">Kenya (+254)</span>
             </span>
-            <input type="text" class="w-full flex-1 border border-gray-300 rounded-none rounded-r-lg bg-gray-50 p-1.5 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500" placeholder="Enter telephone number">
+            <input
+              v-model="telephoneNumber"
+              type="text"
+              class="w-full flex-1 border border-gray-300 rounded-none rounded-r-lg bg-gray-50 p-1.5 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500"
+              placeholder="Enter telephone number"
+            >
           </div>
         </div>
       </div>
@@ -450,14 +560,16 @@ function handleDaysOfOperation(day: string) {
       <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
         Select Working hours
       </h1>
-      <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+      <p
+        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+      >
         Select your working days
       </p>
       <div class="flex flex-wrap justify-center gap-6 py-10 md:justify-start">
         <button
           v-for="(day, index) in daysOfTheWeek" :key="index"
           class="h-14 w-36 border border-gray-300 rounded px-6 text-xl"
-          :class="daysOfOperation.includes(day) ? ` bg-gray-300 text-black hover:bg-gray-400` : ` ` "
+          :class="daysOfOperation.includes(day) ? ` bg-gray-300 text-black hover:bg-gray-400` : ` `"
           @click="handleDaysOfOperation(day)"
         >
           {{ day }}
@@ -467,18 +579,24 @@ function handleDaysOfOperation(day: string) {
         <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
           Business working hours
         </h1>
-        <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+        <p
+          class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        >
           Select your opening and closing hours
         </p>
         <div class="w-full flex justify-center gap-x-10 py-4 md:justify-start">
           <div class="flex flex-col gap-y-6">
-            <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+            <p
+              class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+            >
               Opening
             </p>
             <input id="" v-model="openingHours" type="time" class="border border-gray-300 rounded px-8 py-3" name="">
           </div>
           <div class="flex flex-col gap-y-6">
-            <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+            <p
+              class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+            >
               Closing
             </p>
             <input id="" v-model="closingHours" type="time" class="border border-gray-300 rounded px-8 py-3" name="">
@@ -491,29 +609,40 @@ function handleDaysOfOperation(day: string) {
       <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
         Here is how your business will look like
       </h1>
-      <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+      <p
+        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+      >
         If all is set-up you can publish your business
       </p>
       <div class="mx-auto w-4/5 pt-8 md:w-full">
         <RatingCard :business="localBusiness" />
         <p class="py-6 font-light text-gray-500">
-          By publishing, you acknowledge that you have read and agree to our <a href="http://" class="text-gray-800 underline underline-offset-8 hover:text-gray-800">terms of service</a>
+          By publishing, you acknowledge that you have read and agree to our <a
+            href="http://"
+            class="text-gray-800 underline underline-offset-8 hover:text-gray-800"
+          >terms of service</a>
           and <a href="http://" class="text-gray-800 underline underline-offset-8 hover:text-gray-800">privacy policy</a>
         </p>
       </div>
     </div>
   </div>
   <div class="fixed bottom-0 left-0 right-0 bg-white py-10">
-    <div
-      class="mx-auto w-3/5 flex bg-white"
-      :class="step === 0 ? ` justify-end` : ` justify-between`"
-    >
-      <button v-if="step !== 0" type="submit" class="flex items-center justify-center gap-x-2 text-black underline underline-offset-8" @click="handleBack">
+    <div class="mx-auto w-3/5 flex bg-white" :class="step === 0 ? ` justify-end` : ` justify-between`">
+      <button
+        v-if="step !== 0" type="submit"
+        class="flex items-center justify-center gap-x-2 text-black underline underline-offset-8" @click="handleBack"
+      >
         <IconsArrowLeft class="h-6 w-6 text-gray-800" />
         Back
       </button>
-      <button type="submit" class="rounded-md bg-green-500 px-12 py-3 text-center text-xl text-white hover:bg-green-600" @click=" step === 7 ? publish() : handleNext()">
-        {{ step < 7 ? ` Next` : ` Publish` }}
+      <button
+        type="submit" class="rounded-md bg-black px-12 py-2.5 text-center text-xl text-white"
+        @click=" step === 7 ? publish() : handleNext()"
+      >
+        <IconsLoading v-if="loading" />
+        <p v-else>
+          {{ step < 7 ? ` Next` : ` Publish` }}
+        </p>
       </button>
     </div>
   </div>

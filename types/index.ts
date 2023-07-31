@@ -6,7 +6,8 @@ export interface category {
   iconComponent: any
   image: string
 }
-export interface CoffeeHouse {
+export interface businesstype {
+  id: string
   name: string
   handle: string
   reviews: number
@@ -45,10 +46,16 @@ export interface reaction {
 export interface Review {
   id: number
   name: string
-  image: string
+  images: string[]
   rating: number
-  createdAt: string
   text: string
+  user_id: string
+  business_id: string
+  user: {
+    full_name: string
+    photo: string
+  }
+  created_at: string
 }
 
 export interface Article {
@@ -126,4 +133,20 @@ export interface UserObject {
     image: string
   }
   expires: string
+}
+
+export interface Business {
+  amenities: string[]
+  business_description: string
+  category: string
+  created_at: string
+  handle: string
+  id: string
+  images: string[]
+  location: string
+  name: string
+  opening_hours: string[]
+  telephone_number: string
+  user_id: string | undefined
+  verified: boolean
 }

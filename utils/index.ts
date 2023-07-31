@@ -114,3 +114,14 @@ export function stringToHslColor(str: string, s = 40, l = 80) {
   const h = hash % 360
   return `hsl(${h}, ${s}%, ${l}%)`
 }
+
+export default function readingTime(content: any) {
+  let minutes = 0
+  const contentAsString = JSON.stringify(content)
+  const words = contentAsString.split(' ').length
+  const wordsPerMinute = 200
+
+  minutes = Math.ceil(words / wordsPerMinute)
+
+  return minutes
+}

@@ -1,10 +1,19 @@
 <script setup lang="ts">
+import { useHead } from 'unhead'
 import { categories } from '~/config/categories'
-import { businesses } from '~/constants'
+import { useBusinessesStore } from '~/store/businesses'
+
+useHead({
+  title: 'Category - Kikao',
+})
 
 const route = useRoute()
+const businessesStore = useBusinessesStore()
 
 const category = computed(() => categories.find(category => category.icon === route.params.category))
+const businesses = computed(() =>
+  businessesStore.$state.businesses.filter(business => business.category === route.params.category),
+)
 </script>
 
 <template>
@@ -31,17 +40,26 @@ const category = computed(() => categories.find(category => category.icon === ro
         </div>
       </div>
     </div>
-    <div class="w-full flex flex-wrap justify-center gap-x-6 gap-y-2 px-10 py-8">
+    <div v-if="businesses.length > 0" class="w-full flex flex-wrap justify-center gap-x-6 gap-y-2 px-10 py-8">
       <RatingCard v-for="(business, index) in businesses" :key="index" :business="business" />
     </div>
+    <div v-else class="flex items-center justify-center py-20 text-center">
+      <div>
+        <p class="text-base">
+          Businesses for the category <span class="text-red-500">{{ route.params.category }}</span> are not available at the moment
+        </p>
+        <button class="my-8 rounded bg-green-400 px-6 py-3 text-white hover:bg-green-500" @click="$router.push('/category')">
+          Go to Categories
+        </button>
+      </div>
+    </div>
   </div>
-
-  <div v-else class="flex items-center justify-center py-20 text-center">
+  <div v-else class="flex items-center justify-center py-48 text-center">
     <div>
       <p class="text-xl">
         The category <span class="text-red-500">{{ route.params.category }}</span> does not exist yet
       </p>
-      <button class="my-8 rounded bg-indigo-400 px-6 py-3 text-white hover:bg-indigo-500" @click="$router.push('/category')">
+      <button class="my-8 rounded bg-green-400 px-6 py-3 text-white hover:bg-green-500" @click="$router.push('/category')">
         Go to Categories
       </button>
     </div>

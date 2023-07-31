@@ -3,11 +3,11 @@ import { defineProps, ref, withDefaults } from 'vue'
 import NextIcon from '@/components/icons/NextIcon.vue'
 import PreviousIcon from '@/components/icons/PreviousIcon.vue'
 
-import type { CoffeeHouse } from '@/types'
+import type { businesstype } from '@/types'
 
 const props = withDefaults(
   defineProps<{
-    business: CoffeeHouse
+    business: businesstype
   }>(),
   {},
 )
@@ -102,7 +102,7 @@ function handlePreviousImage() {
           </button>
         </div>
         <div class="">
-          <router-link :to="`/biashara/${business.handle}`" class="hover:bg-gray-100">
+          <router-link :to="`/biashara/${business.id}`" class="hover:bg-gray-100">
             <div class="">
               <div class="flex items-center justify-between pt-1">
                 <p class="truncate pt-2 text-[16px] font-medium text-black">

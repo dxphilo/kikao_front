@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { useToast } from 'vue-toastification'
 
+import { useHead } from 'unhead'
+
+useHead({
+  title: 'Addpost - Kikao',
+})
+
 const toast = useToast()
 
 const previewImages = ref<string[]>([])

@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { useHead } from 'unhead'
 import type { Person } from '@/types/'
 import TeamMember from '~/components/Team/TeamMember.vue'
+
+useHead({
+  title: 'Team - Kikao',
+})
 
 const teamMembers: Person[] = [
   {
@@ -8,7 +13,7 @@ const teamMembers: Person[] = [
     twitter: 'https://twitter.com/amjohnphilip',
     avatar: 'https://avatars.githubusercontent.com/u/60175531?v=4',
     github: 'https://www.github.com/dxphilo',
-    role: 'Founder',
+    role: 'Engineering',
     website: 'https://www.johnphilip.dev',
   },
   {

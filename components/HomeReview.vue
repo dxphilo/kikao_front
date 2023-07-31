@@ -13,15 +13,15 @@ withDefaults(
 </script>
 
 <template>
-  <div class="w-[380px] border border-gray-200 rounded-lg px-7 py-6 shadow-sm hover:bg-slate-50">
+  <div class="w-[360px] border border-gray-200 rounded-lg p-6 shadow-sm hover:bg-slate-50">
     <p class="py-2 text-base font-light text-gray-500">
-      "{{ reviewer.review.length > 300 ? `${reviewer.review.slice(0, 300)}...` : reviewer.review }}"
+      "{{ reviewer.review.length > 450 ? `${reviewer.review.slice(0, 450)}...` : reviewer.review }}"
     </p>
-    <div class="flex pt-2">
-      <img class="h-10 w-10 cursor-pointer rounded-full bg-cover object-cover" :src="reviewer.avatar" alt="&{reviewer.name}">
-      <div class="ml-3 flex gap-x-14 gap-y-1">
+    <div class="flex pt-3">
+      <img class="h-12 w-12 cursor-pointer rounded-full bg-cover object-cover" :src="reviewer.avatar" alt="&{reviewer.name}">
+      <div class="ml-3 flex gap-x-8 gap-y-1">
         <div>
-          <p class="text-sm">
+          <p class="text-base">
             {{ reviewer.name }}
           </p>
           <div class="flex items-center text-sm">
