@@ -17,7 +17,15 @@ useHead({
       Let your customers be your best brand ambassadors.
     </p>
     <div class="flex items-center justify-center gap-4 pt-8 text-sm">
+<<<<<<< HEAD
+<<<<<<< HEAD
       <RouterLink to="/register" class="border border-green-400 rounded-full bg-green-400 px-8 py-3.5 text-white hover:bg-green-500">
+=======
+      <RouterLink to="/register" class="rounded-full bg-black px-8 py-3.5 text-white">
+>>>>>>> e6c2f3d (fix: refactors + footer adjustments)
+=======
+      <RouterLink to="/register" class="border border-green-400 rounded-full bg-green-400 px-8 py-3.5 text-white hover:bg-green-500">
+>>>>>>> bc7227f (fix: several fixes + intergration)
         Get Started
       </RouterLink>
       <RouterLink to="/pricing" class="border border-black rounded-full px-8 py-3.5 text-black hover:bg-gray-100">

@@ -1,30 +1,9 @@
+<script lang="ts">
+export default {
+  name: 'TeenyiconsArrowRightSolid',
+}
+</script>
+
 <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="192"
-    height="192"
-    fill="#000000"
-    viewBox="0 0 256 256"
-  >
-    <rect width="256" height="256" fill="none" />
-    <line
-      x1="40"
-      y1="128"
-      x2="216"
-      y2="128"
-      fill="none"
-      stroke="#000000"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
-    />
-    <polyline
-      points="144 56 216 128 144 200"
-      fill="none"
-      stroke="#000000"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="16"
-    />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15"><path fill="currentColor" fillRule="evenodd" d="M9.854 3.146L14.207 7.5l-4.353 4.354l-.708-.708L12.293 8H1V7h11.293L9.146 3.854l.708-.708Z" clipRule="evenodd" /></svg>
 </template>

@@ -31,7 +31,7 @@ const product = [
   },
   {
     name: 'Blog',
-    link: '/articles',
+    link: '/blog',
   },
   {
     name: 'Team',
@@ -46,7 +46,7 @@ const Help = [
   },
   {
     name: 'Terms',
-    link: '/terms',
+    link: '/blog/privacy',
   },
   {
     name: 'FAQ\'\s',

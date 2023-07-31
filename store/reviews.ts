@@ -20,7 +20,7 @@ export const useReviewStore = defineStore('reviewsStore', {
         const response = await axios.get(`${config.public.BASE_URL}/reviews/`)
 
         const data = await response.data
-        this.reviews = data
+        this.reviews = data.data
       }
       catch (error) {
         handleError(error)
