@@ -23,10 +23,14 @@ withDefaults(
       <ul class="flex space-x-1">
         <li class="h-8 w-8 flex cursor-pointer items-center justify-center rounded-full hover:border hover:bg-gray-200">
 <<<<<<< HEAD
+<<<<<<< HEAD
           <a :href="profile.twitter" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-black hover:text-gray-900 dark:hover:text-white">
 =======
           <a :href="profile.twitter" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-[#00acee] hover:text-gray-900 dark:hover:text-white">
 >>>>>>> e6c2f3d (fix: refactors + footer adjustments)
+=======
+          <a :href="profile.twitter" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-black hover:text-gray-900 dark:hover:text-white">
+>>>>>>> bc7227f (fix: several fixes + intergration)
             <IconsSocialsTwitter />
           </a>
         </li>
@@ -37,10 +41,14 @@ withDefaults(
         </li>
         <li class="h-8 w-8 flex cursor-pointer items-center justify-center rounded-full hover:border hover:bg-gray-300">
 <<<<<<< HEAD
+<<<<<<< HEAD
           <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-900 dark:hover:text-white">
 =======
           <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="text-[#ea4c89] hover:text-gray-900 dark:hover:text-white">
 >>>>>>> e6c2f3d (fix: refactors + footer adjustments)
+=======
+          <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-900 dark:hover:text-white">
+>>>>>>> bc7227f (fix: several fixes + intergration)
             <IconsSocialsWebsite />
           </a>
         </li>
