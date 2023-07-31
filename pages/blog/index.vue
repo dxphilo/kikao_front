@@ -8,7 +8,7 @@ useHead({
   ],
 })
 
-const articles: Article[] = await queryContent('articles').sort({ createdAt: 1 }).find() as Article[]
+const articles: Article[] = await queryContent('blog').sort({ createdAt: 1 }).find() as Article[]
 </script>
 
 <template>

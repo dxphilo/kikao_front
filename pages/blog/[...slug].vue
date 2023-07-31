@@ -1,5 +1,5 @@
 <script setup>
-import readingTime from '@/utils/index'
+import readingTime from '~/utils'
 
 const { path } = useRoute()
 
@@ -19,7 +19,7 @@ const { data } = await useAsyncData(`content-${path}`, async () => {
 const [prev, next] = data.value.surround
 
 useHead({
-  title: data.value.article.title,
+  title: `${data.value.article.title} - Kikao`,
   meta: [
     { name: 'description', content: data.value.article.description },
     {
@@ -37,29 +37,30 @@ useHead({
       <h1 class="heading text-center">
         {{ data.article.title }}
       </h1>
-      <div class="supporting my-3 flex flex-wrap justify-center">
-        <span>
+      <div class="flex flex-wrap justify-center py-3 text-xl font-light text-gray-500">
+        <p>
           {{ data.article.description }}
-        </span>
-        <span>
-          <span class="ml-4 mt-0.5 font-bold">{{ readingTime(data.article) }}
-          </span>
-          Min read
-        </span>
+        </p>
+        <div class="flex items-center justify-center gap-x-2">
+          <p class="pl-2 font-semibold">
+            {{ readingTime(data.article) }}
+          </p>
+          <p>Min read</p>
+        </div>
       </div>
 
-      <div class="img-cont my-4 h-[450px]">
+      <div class="img-cont h-[500px] py-4">
         <img
           :src="`${data.article.imgurl}`"
           :alt="data.article.title"
-          class="rounded"
+          class="w-full rounded"
         >
       </div>
       <a
         :href="`${data.article.imgurl}`"
         target="_blank"
         rel="noopener noreferrer"
-        class="my-2 flex justify-center text-sm no-underline hover:underline"
+        class="flex justify-center py-2 text-sm font-light text-gray-500 no-underline hover:underline"
       >{{ data.article.attribution }}</a>
       <ul class="article-tags">
         <li v-for="(tag, i) in data.article.tags" :key="i" class="tag">
@@ -70,7 +71,7 @@ useHead({
     <Hr />
     <section class="article-section mb-2">
       <aside class="aside">
-        <Toc :links="data.article.body.toc.links" />
+        <BlogToc :links="data.article.body.toc.links" />
       </aside>
       <article class="article">
         <ContentRenderer :value="data.article">
@@ -80,12 +81,13 @@ useHead({
     </section>
 
     <!-- social media share button -->
-    <PrevNext :prev="prev" :next="next" />
-    <Hr />
+    <div class="py-10">
+      <BlogPrevNext :prev="prev" :next="next" />
+    </div>
   </main>
 </template>
 
-<style scoped>
+<style>
 .article-main {
   @apply p-4 max-w-5xl m-auto;
 }
@@ -93,13 +95,7 @@ useHead({
 .article-header {
   @apply p-4 py-6;
 }
-h2{
-    @apply py-3 text-base;
-}
 
-ul li strong{
-    @apply py-2;
-}
 .article-header .heading {
   @apply font-extrabold text-5xl;
 }
@@ -110,6 +106,14 @@ ul li strong{
 
 .article-section {
   @apply grid grid-cols-8;
+}
+
+.aside {
+  @apply col-span-full md:col-span-2 row-start-1 w-full pt-14;
+}
+
+.aside .toc {
+  @apply sticky top-20;
 }
 
 .article {
@@ -124,10 +128,37 @@ ul li strong{
 .article[data-v-02b6418b] :where(a):not(:where([class~="not-prose"] *)):hover {
   @apply underline;
 }
+
 a {
   text-decoration: none;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-header;
+}
+
+.article h2 a {
+  @apply text-2xl font-semibold py-2;
+}
+.article h2{
+  @apply py-3;
+}
+
+.article p{
+  @apply font-gray-500 font-light;
+}
+
+.article ul li strong{
+  @apply font-semibold;
+}
+.article ul li{
+  @apply py-2 font-semibold;
+}
 .icon {
   @apply inline-flex w-6 h-6;
 }
@@ -154,12 +185,11 @@ a {
 }
 
 .article-tags {
-  @apply flex gap-2 py-3;
+  @apply flex gap-2 py-2;
 }
 
 .article-tags .tag {
-  @apply bg-slate-100 text-slate-700 text-sm p-3 py-2 rounded-md;
-  @apply cursor-pointer !py-2 hover:-translate-y-3;
+  @apply bg-slate-100 text-slate-700 text-sm py-2 px-3 uppercase rounded-md font-light;
 }
 
 /* BLOG PAGES */

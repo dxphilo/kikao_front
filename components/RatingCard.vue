@@ -46,7 +46,7 @@ function handlePreviousImage() {
               alt="business listing image from kikao"
               loading="eager"
               fetchpriority="true"
-              class="h-[420px] w-full rounded-xl bg-cover object-cover object-center duration-700 ease-in-out md:h-[300px] hover:cursor-pointer"
+              class="h-[420px] w-full border border-gray-200 rounded-xl bg-cover object-cover object-center duration-700 ease-in-out md:h-[300px] hover:cursor-pointer"
               width="280"
               height="280"
             >
@@ -115,7 +115,7 @@ function handlePreviousImage() {
                   <span class="font-medium text-gray-800">{{ business.reviewScore }}</span>
                 </div>
               </div>
-              <p class="py-1 text-base font-light text-gray-500 dark:text-gray-400">
+              <p class="py-1 text-base font-light capitalize text-gray-500 dark:text-gray-400">
                 {{ business.category }}
               </p>
 

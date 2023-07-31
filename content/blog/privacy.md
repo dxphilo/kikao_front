@@ -22,9 +22,9 @@ createdAt: 05-06-2023
 attribution: Photo by Anni Roenkae from Pexels
 ---
 
-# Privacy Policy for Kikao - Business Listing and Review Website
+## Privacy Policy for Kikao - Business Listing and Review Website
 
-**Effective Date: [Date]**
+**Effective Date: [5th July 2023]**
 
 Welcome to Kikao, a business listing and review website that enables users to discover and rate businesses in various categories. This Privacy Policy outlines the types of personal information we collect, how we use it, and the choices you have regarding your data when using our platform. By accessing or using Kikao, you agree to the practices described in this Privacy Policy.
 
@@ -114,6 +114,6 @@ We may update this Privacy Policy from time to time to reflect changes in our pr
 
 ## 8. Contact Us:
 
-If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us at [Contact Email Address].
+If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us at contactkikao@gmail.com.
 
 Thank you for using Kikao!

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useOnline } from '@vueuse/core'
 import { useBusinessesStore } from './store/businesses'
+import { useReviewStore } from './store/reviews'
 import { appName } from '~/constants'
 import { useRootStore } from '~/store/index'
 
 const rootStore = useRootStore()
 const businessesStore = useBusinessesStore()
+const reviewStore = useReviewStore()
 
 const online = useOnline()
 
@@ -14,6 +16,7 @@ useHead({
 })
 
 businessesStore.fetchBusinesses()
+reviewStore.getReviews()
 const showAddPopup = computed(() => rootStore.addPopupState)
 </script>
 

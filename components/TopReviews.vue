@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { reviewes } from '~/config/reviewers'
+import { useReviewStore } from '~/store/reviews'
+
+const reviewStore = useReviewStore()
+
+const reviewers = computed(() => reviewStore.$state.reviews)
 </script>
 
 <template>
@@ -13,7 +17,7 @@ import { reviewes } from '~/config/reviewers'
       </p>
     </div>
     <div class="w-full flex flex-wrap items-center justify-center gap-6 py-8">
-      <HomeReview v-for="(reviewer, index) in reviewes" :key="index" :reviewer="reviewer" />
+      <HomeReview v-for="(reviewer, index) in reviewers" :key="index" :reviewer="reviewer" />
     </div>
   </div>
 </template>

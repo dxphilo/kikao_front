@@ -1,5 +1,9 @@
 <script  setup lang="ts">
-import { reviewers } from '~/config/reviewers'
+import { useReviewStore } from '~/store/reviews'
+
+const reviewStore = useReviewStore()
+
+const reviewers = computed(() => reviewStore.$state.reviews)
 </script>
 
 <template>
@@ -22,10 +26,10 @@ import { reviewers } from '~/config/reviewers'
           <h4 class="font-medium text-slate-900">
             Reviewers
           </h4>
-          <span class="rounded-full bg-slate-200 px-2 py-1 text-xs font-semibold text-slate-700">2,000+</span>
+          <span class="rounded-full bg-slate-200 px-2 py-1 text-xs font-semibold text-slate-700">{{ reviewers.length }}+</span>
         </div>
         <div class="flex overflow-hidden py-3 -space-x-2">
-          <img v-for="(reviewer, index) in reviewers" :key="index" class="inline-block h-9 w-9 rounded-full bg-cover object-cover ring-2 ring-white" :src="reviewer" :alt="reviewer">
+          <img v-for="(reviewer, index) in reviewers" :key="index" class="inline-block h-9 w-9 rounded-full bg-cover object-cover ring-2 ring-white" :src="reviewer.user.photo" :alt="`${reviewer.user.full_name} reviewer photo`">
         </div>
         <div class="text-sm font-medium">
           <p class="text-green-500">
