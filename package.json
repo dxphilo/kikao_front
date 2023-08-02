@@ -14,7 +14,7 @@
     "start:generate": "npx serve .output/public"
   },
   "dependencies": {
-    "@braintree/sanitize-url": "^6.0.2",
+    "@braintree/sanitize-url": "^6.0.3",
     "axios": "^1.4.0",
     "next-auth": "4.21.1",
     "vue-toastification": "2.0.0-rc.5",
