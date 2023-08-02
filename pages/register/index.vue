@@ -12,14 +12,14 @@ import { amenities } from '~/config/amenities'
 import { counties } from '~/utils/counties'
 import { daysOfTheWeek } from '~/constants/days'
 import { handleError } from '~/utils/error'
-import { useRootStore } from '~/store/user'
+import { useUserStore } from '~/store/user'
 
 useHead({
   title: 'Register - Kikao',
 })
 
 const toast = useToast()
-const indexStore = useRootStore()
+const indexStore = useUserStore()
 const router = useRouter()
 const config = useRuntimeConfig()
 
@@ -41,6 +41,7 @@ const town = ref<string>('')
 const loading = ref<boolean>(false)
 
 const localBusiness = ref({
+  id: 0,
   name: businessName.value,
   handle: county.value,
   reviews: 0,
@@ -57,6 +58,7 @@ const localBusiness = ref({
 
 watch([businessName, county, location, previewImages, businessDescription, businesstype, telephoneNumber], () => {
   localBusiness.value = {
+    id: 0,
     name: businessName.value,
     handle: county.value,
     reviews: 0,
@@ -462,13 +464,7 @@ function resetFormValues() {
             class="mx-10 w-full flex flex-col cursor-pointer items-center justify-center border-2 border-gray-300 rounded-lg border-dashed bg-gray-50 md:mx-0 hover:bg-gray-100"
           >
             <div class="flex flex-col items-center justify-center py-4">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
               <IconsUpload />
->>>>>>> e6c2f3d (fix: refactors + footer adjustments)
-=======
->>>>>>> bc7227f (fix: several fixes + intergration)
               <input
                 id="dropzone-file" type="file" class="hidden" accept="image/jpeg, image/png" name="kikaoimage"
                 multiple @change="onFileSelected"
@@ -554,14 +550,7 @@ function resetFormValues() {
               <span class="text-sm">Kenya (+254)</span>
             </span>
             <input
-<<<<<<< HEAD
-<<<<<<< HEAD
               v-model="telephoneNumber"
-=======
->>>>>>> e6c2f3d (fix: refactors + footer adjustments)
-=======
-              v-model="telephoneNumber"
->>>>>>> bc7227f (fix: several fixes + intergration)
               type="text"
               class="w-full flex-1 border border-gray-300 rounded-none rounded-r-lg bg-gray-50 p-1.5 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500"
               placeholder="Enter telephone number"
@@ -635,7 +624,7 @@ function resetFormValues() {
             href="http://"
             class="text-gray-800 underline underline-offset-8 hover:text-gray-800"
           >terms of service</a>
-          and <a href="http://" class="text-gray-800 underline underline-offset-8 hover:text-gray-800">privacy policy</a>
+          and <a href="/blog/privacy" class="text-gray-800 underline underline-offset-8 hover:text-gray-800">privacy policy</a>
         </p>
       </div>
     </div>
@@ -653,20 +642,10 @@ function resetFormValues() {
         type="submit" class="rounded-md bg-black px-12 py-2.5 text-center text-xl text-white"
         @click=" step === 7 ? publish() : handleNext()"
       >
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bc7227f (fix: several fixes + intergration)
         <IconsLoading v-if="loading" />
         <p v-else>
           {{ step < 7 ? ` Next` : ` Publish` }}
         </p>
-<<<<<<< HEAD
-=======
-        {{ step < 7 ? ` Next` : ` Publish` }}
->>>>>>> e6c2f3d (fix: refactors + footer adjustments)
-=======
->>>>>>> bc7227f (fix: several fixes + intergration)
       </button>
     </div>
   </div>

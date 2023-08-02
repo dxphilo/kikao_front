@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useHead } from 'unhead'
 import GoogleIcon from '~/components/icons/GoogleIcon.vue'
 import { handleError } from '~/utils/error'
+import { useUserStore } from '~/store/user'
 
 useHead({
   title: 'Signup - Kikao',
@@ -15,6 +16,7 @@ const { signIn, status, data } = useAuth()
 
 const toast = useToast()
 const router = useRouter()
+const userStore = useUserStore()
 const telNumber = ref<string>('')
 const authStatus = computed(() => status.value)
 
@@ -54,6 +56,7 @@ async function send_data() {
     })
     window.localStorage.setItem('kikao_token', res.data.access_token)
     toast.success(`Hi ${res.data.user_name}, your account was successfully created`)
+    userStore.updateUser(res.data.user)
   }
   catch (error) {
     handleError(error)

@@ -1,18 +1,33 @@
 import { defineStore } from 'pinia'
 
-export const useRootStore = defineStore('rootStore', {
-  state: () => {
+// TypeScript interface for the User class
+interface IUser {
+  id: string
+  name: string
+  email: string
+  tel_number: string
+  picture: string
+}
+
+interface IUserState {
+  user_info: IUser
+}
+export const useUserStore = defineStore('userStore', {
+  state: (): IUserState => {
     return {
       user_info: {
-        id: 'john_philip',
-
+        id: '',
+        name: '',
+        email: '',
+        tel_number: '',
+        picture: '',
       },
     }
   },
   actions: {
-    toggleShowAddPopup() {
+    updateUser(user_info: IUser) {
+      this.user_info = user_info
     },
-
   },
   getters: {
   },

@@ -48,7 +48,7 @@ const teamMembers: Person[] = [
       <div
         class="mx-auto w-2/4 flex flex-wrap items-center justify-center py-10"
       >
-        <p class="text-center font-light text-gray-500 sm:text-lg dark:text-gray-400">
+        <p class="text-center font-light text-gray-500">
           If you believe in this project, are a team player, ready to roll up
           your sleeves and help drive the project forward and bring our vision
           to life, then we would love to hear from you! Please reach out by email
