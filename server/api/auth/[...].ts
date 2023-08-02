@@ -2,12 +2,13 @@
 import GoogleProvider from 'next-auth/providers/google'
 import { NuxtAuthHandler } from '#auth'
 
+const config = useRuntimeConfig()
 export default NuxtAuthHandler({
   providers: [
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
     GoogleProvider.default({
-      clientId: '44226025294-h1kua1iuland47or4pdpgrcld7bgb1l3.apps.googleusercontent.com',
-      clientSecret: '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',
+      clientId: config.public.GOOGLE_CLIENTID,
+      clientSecret: config.public.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
           prompt: 'consent',
