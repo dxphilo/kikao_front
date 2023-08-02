@@ -2,7 +2,7 @@ name: Validate Branch
 on:
   push:
     branches:
-      - "**"
+      - '**'
 
 jobs:
   install-dependencies:
@@ -18,7 +18,7 @@ jobs:
       # use the cached node_modules -- this is only used to speed up the install-dependencies job
       - uses: actions/cache@v2
         with:
-          path: "node_modules"
+          path: node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: install git
