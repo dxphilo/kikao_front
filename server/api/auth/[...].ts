@@ -19,4 +19,10 @@ export default NuxtAuthHandler({
     }),
   ],
   secret: 'this-is-not-super-secret-app',
+  callbacks: {
+    async jwt({ token }) {
+      token.userRole = 'user'
+      return token
+    },
+  },
 })
