@@ -40,7 +40,7 @@ async function send_data() {
   const BASE_URL = `${config.public.BASE_URL}/users/`
   const phone_number = window.localStorage.getItem('phone_number')
   if (!phone_number)
-    toast.info('No phone number provided')
+    return toast.info('No phone number provided')
 
   const body_data = {
     fullname: data.value?.user?.name,
