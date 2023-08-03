@@ -77,7 +77,7 @@ export default defineNuxtConfig({
   },
 
   pwa,
-  ssr: false,
+  ssr: true,
 
   devtools: {
     enabled: true,

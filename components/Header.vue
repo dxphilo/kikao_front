@@ -37,8 +37,6 @@ function handleShow() {
           </h1>
         </router-link>
       </div>
-      {{ status }} <br>
-      {{ data }}
       <div class="flex items-center justify-center gap-x-8 text-[15px] font-light text-gray-500 text-gray-500 lg:gap-x-8">
         <router-link
           v-if="!isExcluded"
