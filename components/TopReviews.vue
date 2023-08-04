@@ -9,10 +9,10 @@ const reviewers = computed(() => reviewStore.$state.reviews)
 <template>
   <div class="mx-auto w-4/5">
     <div class="py-10 text-center">
-      <h2 class="block text-center text-5xl font-medium text-[#222222]">
+      <h2 class="header_text">
         Top reviews
       </h2>
-      <p class="pt-4 text-center text-xl font-light text-gray-500 dark:text-gray-400">
+      <p class="b_text text-center">
         Let your customers be your best brand ambassadors
       </p>
     </div>

@@ -47,14 +47,15 @@ function handleShow() {
         </router-link>
         <router-link
           v-if="!isExcluded && status === 'unauthenticated'"
-          to="/reviews" class="hidden lg:block hover:text-gray-900 hover:underline hover:underline-offset-8"
+          to="/reviews" class="hidden flex items-center justify-center gap-x-2 hover:text-gray-900 hover:underline hover:underline-offset-8"
           :class="$route.path === '/reviews' ? ` text-gray-900 underline underline-offset-8` : ` `"
         >
-          Write a review
+          <IconsPen />
+          <p>Review</p>
         </router-link>
         <router-link
           v-if="status === 'authenticated' && route.path !== '/register'"
-          to="/register" class="flex items-center justify-center gap-x-2 border border-gray-400 rounded-full px-3 py-2 text-center text-black lg:block hover:bg-gray-100 hover:text-gray-900"
+          to="/register" class="flex items-center justify-center gap-x-2 btn"
           :class="$route.path === '/register' ? ` bg-gray-100 ` : ` `"
         >
           <p> <IconsAddIcon class="mr-1 inline text-black" />Add a business</p>
@@ -62,21 +63,21 @@ function handleShow() {
 
         <router-link
           v-if="status === 'unauthenticated' && route.path !== '/signup' && route.path !== '/login'"
-          class="flex cursor-pointer items-center border border-rounded-500 rounded-full px-4 py-2.5 text-center text-sm text-black"
+          class="btn"
           to="/login"
         >
           Log In
         </router-link>
         <router-link
           v-if="status === 'unauthenticated' && route.path !== '/signup'"
-          class="flex cursor-pointer items-center rounded-full bg-green-500 px-4 py-2.5 text-center text-sm text-white hover:bg-green-600"
+          class="btn_green"
           to="/signup"
         >
           Sign Up
         </router-link>
         <div v-if="status === 'authenticated'" class="dropdown relative inline-block">
           <button class="inline-flex items-center text-center text-sm font-medium" type="button" @click="handleShow">
-            <img v-if="data?.user?.image" :src="data.user.image" :alt="`${data.user.name} avatar image`" srcset="" class="h-9 w-9 rounded-full">
+            <img v-if="data?.user?.image" :src="data.user.image" :alt="`${data.user.name} avatar image`" srcset="" class="avatar_icon">
             <svg class="ml-2.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
             </svg>

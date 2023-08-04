@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, ref, withDefaults } from 'vue'
 import NextIcon from '@/components/icons/NextIcon.vue'
 import PreviousIcon from '@/components/icons/PreviousIcon.vue'
 
@@ -115,10 +114,15 @@ function handlePreviousImage() {
                   <span class="font-medium text-gray-800">{{ business.reviewScore }}</span>
                 </div>
               </div>
-              <p class="py-1 text-base font-light capitalize text-gray-500 dark:text-gray-400">
-                {{ business.category }}
-              </p>
-
+              <div class="flex flex-row justify-between py-1">
+                <p class="normal_text flex flex-row items-center gap-x-2 capitalize">
+                  <IconsLocation class="icon text-gray-900" />
+                  {{ business.town }}
+                </p>
+                <p class="normal_text capitalize">
+                  {{ business.category }}
+                </p>
+              </div>
               <div class="flex items-center justify-between gap-x-3 truncate py-1 text-[14px] text-gray-500">
                 <div class="flex items-center gap-x-2">
                   <p class="truncate text-[16px] font-medium text-black">

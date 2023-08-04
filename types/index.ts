@@ -13,6 +13,7 @@ export interface businesstype {
   reviews: number
   reviewScore: number
   location: string
+  town: string
   opening: boolean
   images: string[]
   businessDescription: string

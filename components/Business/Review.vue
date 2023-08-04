@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue'
 import NextIcon from '@/components/icons/NextIcon.vue'
 import PreviousIcon from '@/components/icons/PreviousIcon.vue'
 import { reactions } from '@/config/Reactions'
 import type { Review } from '~/types'
 import { formatDate } from '~/utils'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     review: Review
   }>(),
@@ -15,19 +14,31 @@ withDefaults(
 
 const showFullText = ref(false)
 const showShare = ref(false)
-const imageIndex = ref<number>(0)
-const showPrevNext = ref<boolean>(false)
+const imageIndex = ref(0)
+const showPrevNext = ref(false)
+const showImages = ref(false)
 
 function toggleText() {
   showFullText.value = !showFullText.value
 }
+
+// methods
+function handleNextImage() {
+  if (imageIndex.value < props.review.images.length - 1)
+    imageIndex.value++
+}
+
+function handlePreviousImage() {
+  if (imageIndex.value > 0)
+    imageIndex.value--
+}
 </script>
 
 <template>
-  <div class="h-[600px] w-[400px] border border border-gray-300 rounded-lg px-3">
-    <div class="fle-row flex justify-between py-5">
+  <div class="w-[400px] border border-gray-200 rounded-lg px-5">
+    <div class="fle-row flex justify-between pt-4">
       <div class="flex items-center gap-x-6">
-        <img class="h-10 w-10 cursor-pointer border border-gray-200 rounded-full bg-cover object-cover" :src="`${review.user.photo}`" alt="Kikao reviewr avatar image" loading="eager">
+        <img class="avatar_icon" :src="`${review.user.photo}`" alt="Kikao reviewer avatar image" loading="eager">
         <div>
           <div class="flex items-center justify-between">
             <h1 class="text-[14px] font-semibold">
@@ -37,14 +48,14 @@ function toggleText() {
           <div class="flex items-center">
             <IconsStartFull
               v-for="i in review.rating" :key="i"
-              class="h-3.5 w-3.5 text-yellow-500"
+              class="star text-yellow-500"
             />
-            <IconsStartFull v-for="i in (5 - review.rating)" :key="i" class="h-4 w-4" />
+            <IconsStartFull v-for="i in (5 - review.rating)" :key="i" class="star text-gray-500" />
           </div>
         </div>
       </div>
       <div class="flex items-center gap-x-4">
-        <p class="text-[14px] font-light text-gray-500">
+        <p class="date">
           {{ formatDate(review.created_at) }}
         </p>
         <button class="h-9 w-9 flex items-center justify-center border border-gray-200 rounded-full hover:bg-gray-100" @click="showShare = !showShare">
@@ -52,7 +63,7 @@ function toggleText() {
         </button>
       </div>
     </div>
-    <div v-if="review.images.length > 0">
+    <div v-if="showImages">
       <div
         id="default-carousel"
         class="relative"
@@ -122,21 +133,21 @@ function toggleText() {
         </button>
       </div>
     </div>
-    <div class="pt-4">
-      <p class="font-light leading-7 text-gray-500">
+    <div class="pt-2">
+      <p class="normal_text">
         {{ showFullText ? `${review.text}` : `${review.text.slice(0, 350)}...` }}
         <span v-if="review.text.length > 350" class="cursor-pointer text-sky-400 underline underline-offset-4 hover:text-sky-600" @click="toggleText()"> {{ showFullText ? `Show less` : `Read more` }}</span>
       </p>
       <div class="flex justify-between py-5">
         <div class="flex items-center gap-x-3">
-          <button v-for="(reaction, index) in reactions" :key="index" class="flex items-center gap-x-2 border rounded-full bg-gray-100 px-4 py-2 text-center text-[15px] hover:bg-gray-200">
+          <button v-for="(reaction, index) in reactions" :key="index" class="btn_reaction flex items-center gap-x-2">
             <component :is="reaction.iconComponent" class="h-5 w-5 rounded-full" />
             <p class="text-xs">
               1
             </p>
           </button>
         </div>
-        <button class="gap-x-4 border border-gray-200 rounded-full px-4 py-2 text-center text-[15px] hover:bg-gray-300">
+        <button class="btn_reaction">
           Reply
         </button>
       </div>

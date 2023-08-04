@@ -5,10 +5,10 @@ import CheckCircleIcon from './icons/CheckCircleIcon.vue'
 <template>
   <div class="mx-auto w-3/5">
     <div class="py-10">
-      <h1 class="text-center text-5xl font-medium text-[#222222]">
+      <h1 class="header_text">
         Why you should join us
       </h1>
-      <p class="pt-4 text-center text-base font-light text-gray-500 dark:text-gray-400">
+      <p class="b_text text-center">
         Let your customers be your best brand ambassadors
       </p>
     </div>
@@ -22,7 +22,7 @@ import CheckCircleIcon from './icons/CheckCircleIcon.vue'
               Businesses
             </h1>
           </div>
-          <p class="py-3 text-base font-light text-gray-500 dark:text-gray-400">
+          <p class="normal_text py-3">
             Receive genuine ratings, reviews and feedback from your customers. Gain insight into customer preferences and boost your revenue
           </p>
         </div>
@@ -34,7 +34,7 @@ import CheckCircleIcon from './icons/CheckCircleIcon.vue'
             </h1>
           </div>
           <p
-            class="py-3 text-base font-light text-gray-500 dark:text-gray-400"
+            class="normal_text py-3"
           >
             Read unbiased ratings and reviews to make better choices. Share your personal story with products, services and Businesses
           </p>

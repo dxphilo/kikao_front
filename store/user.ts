@@ -7,6 +7,7 @@ interface IUser {
   email: string
   tel_number: string
   picture: string
+  access_token: string
 }
 
 interface IUserState {
@@ -21,9 +22,11 @@ export const useUserStore = defineStore('userStore', {
         email: '',
         tel_number: '',
         picture: '',
+        access_token: '',
       },
     }
   },
+  persist: true,
   actions: {
     updateUser(user_info: IUser) {
       this.user_info = user_info

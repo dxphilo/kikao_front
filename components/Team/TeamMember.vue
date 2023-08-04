@@ -12,29 +12,29 @@ withDefaults(
 <template>
   <div class="grid gap-8">
     <div class="text-gray-500 dark:text-gray-400">
-      <img class="h-36 w-36 rounded" :src="profile.avatar" :alt="profile.name">
-      <h3 class="pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        <a href="#">{{ profile.name }}</a>
+      <img class="team_avatar_icon" :src="profile.avatar" :alt="profile.name">
+      <h3 class="pt-4 text-xl font-medium tracking-wide text-gray-900 dark:text-white">
+        {{ profile.name }}
       </h3>
-      <p class="font-gray-500 py-3 font-light">
+      <p class="normal_text">
         {{ profile.role }}
       </p>
-      <ul class="flex space-x-1">
-        <li class="h-8 w-8 flex cursor-pointer items-center justify-center rounded-full hover:border hover:bg-gray-200">
-          <a :href="profile.twitter" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-black hover:text-gray-900 dark:hover:text-white">
+      <ul class="flex py-2 space-x-1">
+        <li class="team_social_icons">
+          <a :href="profile.twitter" target="_blank" rel="noopener noreferrer" class="team_a_link">
 
-            <IconsSocialsTwitter />
+            <IconsSocialsTwitter class="icon" />
           </a>
         </li>
-        <li class="h-8 w-8 flex cursor-pointer items-center justify-center rounded-full hover:border hover:bg-gray-300">
-          <a :href="profile.github" target="_blank" rel="noopener noreferrer" class="text-gray-900 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-            <IconsSocialsGithub />
+        <li class="team_social_icons">
+          <a :href="profile.github" target="_blank" rel="noopener noreferrer" class="team_a_link">
+            <IconsSocialsGithub class="icon" />
           </a>
         </li>
-        <li class="h-8 w-8 flex cursor-pointer items-center justify-center rounded-full hover:border hover:bg-gray-300">
-          <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="text-[#ea4c89] hover:text-gray-900 dark:hover:text-white">
+        <li class="team_social_icons">
+          <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="team_a_link text-[#ea4c89]">
 
-            <IconsSocialsWebsite />
+            <IconsSocialsWebsite class="icon" />
           </a>
         </li>
       </ul>

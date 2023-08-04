@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue'
 import type { Article } from '~/types'
 
 withDefaults(
@@ -33,19 +32,21 @@ function convertDate(date: string | number) {
 
         <div class="">
           <div class="p-5">
-            <div class="text-[12px] uppercase">
-              <p>{{ article.category }}</p>
+            <div>
+              <p class="normal_text uppercase">
+                {{ article.category }}
+              </p>
             </div>
 
             <h4 class="!important whitespace-pre-line py-2 text-2xl font-bold leading-9 tracking-wide text-[#222222]">
               {{ article.title }}
             </h4>
             <div class="flex items-center gap-x-4 pb-1 pt-2 font-normal text-gray-500">
-              <p class="text-base font-light text-gray-500 dark:text-gray-400">
+              <p class="normal_text">
                 {{ article.author }}
               </p>
-              <p class="h-.5 w-.5 rounded-full bg-gray-500" />
-              <p class="font-light text-gray-500">
+              <p class="h-1 w-1 rounded-full bg-gray-500" />
+              <p class="normal_text">
                 {{ convertDate(article.createdAt) }}
               </p>
             </div>

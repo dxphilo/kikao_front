@@ -13,6 +13,7 @@ export const useBusinessesStore = defineStore('businessesStore', {
       business_info: {},
     }
   },
+  persist: true,
   actions: {
     async fetchBusinesses() {
       const config = useRuntimeConfig()

@@ -15,11 +15,11 @@ import { handleError } from '~/utils/error'
 import { useUserStore } from '~/store/user'
 
 useHead({
-  title: 'Register - Kikao',
+  title: 'Host your business on Kikao',
 })
 
 const toast = useToast()
-const indexStore = useUserStore()
+const userStore = useUserStore()
 const router = useRouter()
 const config = useRuntimeConfig()
 
@@ -248,7 +248,7 @@ function handleBack() {
 }
 
 async function publish() {
-  const access_token = window.localStorage.getItem('kikao_token')
+  const access_token = userStore.$state.user_info.access_token
   const headers = {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -271,7 +271,9 @@ async function publish() {
     formData.append('business_description', businesstype.value)
     formData.append('telephone_number', telephoneNumber.value)
     formData.append('category', business.value)
-    formData.append('user_id', indexStore.$state.user_info.id)
+    formData.append('county', county.value)
+    formData.append('town', town.value)
+    formData.append('user_id', userStore.$state.user_info.id)
 
     for (let i = 0; i < selectedAmenities.value.length; ++i)
       formData.append('amenities', selectedAmenities.value[i])
@@ -335,7 +337,7 @@ function resetFormValues() {
           What's your business category?
         </h1>
         <p
-          class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+          class="b_text"
         >
           Select what best describes your business
         </p>
@@ -344,7 +346,7 @@ function resetFormValues() {
       <div class="flex flex-wrap items-center justify-center gap-5 py-7">
         <button
           v-for="(category, index) in categories" :key="index"
-          class="w-[200px] flex flex-col items-center border border-gray-200 rounded-lg py-7 hover:border-gray-900"
+          class="b_card"
           :class="business === category.icon ? `border-2 bg-gray-100 border-gray-900` : ` `"
           @click="handleSelected(category.icon)"
         >
@@ -353,7 +355,7 @@ function resetFormValues() {
           </div>
 
           <p
-            class="leading[20px] !important inline-flex whitespace-pre-line pt-5 text-center text-[16px] font-light text-gray-500"
+            class="normal_text py-5 text-center"
           >
             {{ category.name }}
           </p>
@@ -366,14 +368,14 @@ function resetFormValues() {
         What do your business offers
       </h1>
       <p
-        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        class="b_text"
       >
         Select what your business setup looks like
       </p>
-      <div class="flex flex-wrap justify-center gap-x-4 gap-y-5 py-7">
+      <div class="flex flex-wrap justify-center gap-x-4 gap-y-5 py-3">
         <button
           v-for="(biz, index) in businessTypes" :key="index"
-          class="w-[200px] border border-gray-200 rounded-lg px-4 py-5 hover:border-gray-900"
+          class="b_card"
           :class="businesstype === biz.name ? `  border-2 bg-gray-100 border-gray-900` : ` `"
           @click="handleBiz(biz.name)"
         >
@@ -381,7 +383,7 @@ function resetFormValues() {
             <component :is="biz.iconComponent" class="h-10 w-10 text-black" />
           </div>
           <p
-            class="leading[20px] !important inline-flex whitespace-pre-line py-3 text-center text-[16px] font-light text-gray-500"
+            class="normal_text py-4"
           >
             {{ biz.name }}
           </p>
@@ -394,7 +396,7 @@ function resetFormValues() {
         Where's your business located?
       </h1>
       <p
-        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        class="b_text"
       >
         Make it easy for customers to find your business.
       </p>
@@ -408,21 +410,21 @@ function resetFormValues() {
         What amenities do you offer?
       </h1>
       <p
-        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        class="b_text"
       >
         Let customers know what your business offers
       </p>
       <div class="flex flex-wrap justify-center gap-4 py-7">
         <button
           v-for="(amenity, index) in amenities" :key="index"
-          class="w-[200px] flex flex-col items-center justify-center border border-gray-200 rounded-lg px-4 py-7 hover:border-gray-900"
+          class="b_card flex flex-col items-center justify-center"
           :class="selectedAmenities.find((selected) => selected === amenity.name) ? 'border-2 bg-gray-100 border-gray-900' : ''"
           @click="handleAmenity(amenity.name)"
         >
           <div>
             <component :is="amenity.iconComponent" class="h-8 w-8" />
           </div>
-          <p class="pt-2">
+          <p class="normal_text pt-3">
             {{ amenity.name }}
           </p>
         </button>
@@ -434,7 +436,7 @@ function resetFormValues() {
         Add some photos of your business
       </h1>
       <p
-        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        class="b_text"
       >
         Ensure your photos are well-lit and at least 5 photos.
       </p>
@@ -490,7 +492,7 @@ function resetFormValues() {
         Give your business a name and handle
       </h1>
       <p
-        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        class="b_text"
       >
         Remember you can change these details later.
       </p>
@@ -564,7 +566,7 @@ function resetFormValues() {
         Select Working hours
       </h1>
       <p
-        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        class="b_text"
       >
         Select your working days
       </p>
@@ -583,14 +585,14 @@ function resetFormValues() {
           Business working hours
         </h1>
         <p
-          class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+          class="b_text"
         >
           Select your opening and closing hours
         </p>
         <div class="w-full flex justify-center gap-x-10 py-4 md:justify-start">
           <div class="flex flex-col gap-y-6">
             <p
-              class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+              class="b_text"
             >
               Opening
             </p>
@@ -598,7 +600,7 @@ function resetFormValues() {
           </div>
           <div class="flex flex-col gap-y-6">
             <p
-              class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+              class="b_text"
             >
               Closing
             </p>
@@ -613,7 +615,7 @@ function resetFormValues() {
         Here is how your business will look like
       </h1>
       <p
-        class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left"
+        class="b_text"
       >
         If all is set-up you can publish your business
       </p>
@@ -629,7 +631,7 @@ function resetFormValues() {
       </div>
     </div>
   </div>
-  <div class="fixed bottom-0 left-0 right-0 bg-white py-10">
+  <div class="fixed bottom-0 left-0 right-0 bg-white py-8">
     <div class="mx-auto w-3/5 flex bg-white" :class="step === 0 ? ` justify-end` : ` justify-between`">
       <button
         v-if="step !== 0" type="submit"
@@ -639,7 +641,7 @@ function resetFormValues() {
         Back
       </button>
       <button
-        type="submit" class="rounded-md bg-black px-12 py-2.5 text-center text-xl text-white"
+        type="submit" class="rounded-md bg-black px-12 py-2.5 text-center text-base text-white"
         @click=" step === 7 ? publish() : handleNext()"
       >
         <IconsLoading v-if="loading" />

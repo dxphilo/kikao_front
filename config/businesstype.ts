@@ -14,7 +14,7 @@ export const businessTypes: BusinessType[] = [
   { index: 0, name: 'Open-air markets', type: 'in-house', iconComponent: OpenMarket },
   { index: 1, name: 'Indoor shopping malls', type: 'in-house', iconComponent: ShoppingCart },
   { index: 2, name: 'Retail storefronts', type: 'in-house', iconComponent: RetailIcon },
-  { index: 3, name: 'Online stores/e-commerce websites', type: 'in-house', iconComponent: OnlineStore },
+  { index: 3, name: 'Online stores/websites', type: 'in-house', iconComponent: OnlineStore },
   { index: 4, name: 'Food trucks', type: 'in-house', iconComponent: FoodTruck },
   { index: 5, name: 'Home-based business', type: 'in-house', iconComponent: HomeBusiness },
   { index: 6, name: 'Office buildings', type: 'in-house', iconComponent: Office },

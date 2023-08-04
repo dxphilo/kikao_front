@@ -39,6 +39,7 @@ function verifyPhoneNumber() {
 async function send_data() {
   const BASE_URL = `${config.public.BASE_URL}/users/`
   const phone_number = window.localStorage.getItem('phone_number')
+
   if (!phone_number)
     return toast.info('No phone number provided')
 
@@ -48,14 +49,16 @@ async function send_data() {
     email: data.value?.user?.email,
     picture: data.value?.user?.image,
   }
+
   try {
     const res = await axios.post(BASE_URL, body_data, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
+
     window.localStorage.setItem('kikao_token', res.data.access_token)
-    toast.success(`Hi ${res.data.user_name}, your account was successfully created`)
+    toast.success(`Hi ${res.data.user.name}, your account was successfully created`)
     userStore.updateUser(res.data.user)
   }
   catch (error) {
@@ -68,50 +71,50 @@ async function send_data() {
 
 <template>
   <div v-if="status === 'unauthenticated'">
-    <div class="w-full px-10 text-[14px] leading-6 text-black md:mx-auto md:w-[400px] md:px-0">
+    <div class="w-full px-10 text-[14px] leading-6 md:mx-auto md:w-[400px] md:px-0">
       <div class="w-full flex items-center justify-center pt-20">
         <div class="md:text-justified items-center text-center">
           <h1 class="text-3xl font-extrabold text-black">
             Create your Account
           </h1>
-          <span class="inline-block py-10 text-base font-light text-gray-500">
+          <p class="normal_text py-10">
             Please note that phone verification is required for signup. Your phone number will be solely used for identity
             verification to ensure security.
-          </span>
-          <div class="w-full flex flex-col gap-y-5 py-8">
-            <div class="w-full flex">
+          </p>
+          <div class="w-full flex flex-col items-center justify-center gap-y-5 py-8">
+            <div class="mx-auto w-4/5 flex">
               <span
-                class="flex flex-col gap-y-1 overflow-hidden border border-r-0 border-gray-300 rounded-l-md p-2 text-gray-900"
+                class="flex flex-col gap-y-1.5 overflow-hidden border border-r-0 border-gray-300 rounded-l-md p-1 text-gray-900"
               >
-                <span class="text-sm text-gray-400">Country/Region</span>
+                <span class="text-xs text-gray-400">Country/Region</span>
                 <div class="flex items-center justify-center gap-x-2">
-                  <IconsKenyanFlag class="h-5 w-5" />
-                  <p class="text-sm">(+254)</p>
+                  <IconsKenyanFlag class="h-4 w-4" />
+                  <p class="text-xs">(+254)</p>
                 </div>
               </span>
               <input
                 v-model="telNumber" min="10" max="10" type="text"
-                class="w-full flex-1 border border-gray-300 rounded-none rounded-r-lg bg-gray-50 py-1.5 pl-10 text-base text-gray-900 focus:border-gray-500 focus:ring-gray-500"
+                class="w-full flex-1 border border-gray-300 rounded-none rounded-r-lg bg-gray-50 py-1 text-center text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-300"
                 placeholder="Enter telephone number"
               >
             </div>
+            <button
+              type="submit"
+              class="btn_signup mt-10 w-full flex items-center justify-center gap-x-4"
+              @click="verifyPhoneNumber"
+            >
+              <GoogleIcon />
+              <p>Continue with Google</p>
+            </button>
           </div>
         </div>
       </div>
-      <button
-        type="submit"
-        class="mt-10 block w-full flex cursor-pointer items-center justify-center gap-x-4 rounded-full bg-gray-200 px-18 py-4 text-center text-lg hover:bg-gray-300"
-        @click="verifyPhoneNumber"
-      >
-        <GoogleIcon />
-        <p>Continue with Google</p>
-      </button>
     </div>
-    <div class="flex items-center justify-center gap-x-4 py-20 text-center text-base text-black">
-      <a href="/terms" class="text-green-400 hover:underline hover:underline-offset-8">
+    <div class="flex items-center justify-center gap-x-4 py-20 text-center">
+      <a href="/terms" class="text_footer_link">
         Terms of use
       </a>|
-      <a href="privacy" class="text-green-400 hover:underline hover:underline-offset-8">
+      <a href="privacy" class="text_footer_link">
         Privacy policy
       </a>
     </div>

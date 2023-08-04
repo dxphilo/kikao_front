@@ -40,6 +40,9 @@ devDependencies:
   '@nuxtjs/color-mode':
     specifier: ^3.3.0
     version: 3.3.0(rollup@2.79.1)
+  '@pinia-plugin-persistedstate/nuxt':
+    specifier: ^1.1.1
+    version: 1.1.1(@pinia/nuxt@0.4.11)(pinia@2.1.6)(rollup@2.79.1)
   '@pinia/nuxt':
     specifier: ^0.4.11
     version: 0.4.11(rollup@2.79.1)(typescript@4.9.5)(vue@3.3.4)
@@ -2435,6 +2438,21 @@ packages:
 
   /@panva/hkdf@1.1.1:
     resolution: {integrity: sha512-dhPeilub1NuIG0X5Kvhh9lH4iW3ZsHlnzwgwbOlgwQ2wG1IqFzsgHqmKPk3WzsdWAeaxKJxgM0+W433RmN45GA==}
+
+  /@pinia-plugin-persistedstate/nuxt@1.1.1(@pinia/nuxt@0.4.11)(pinia@2.1.6)(rollup@2.79.1):
+    resolution: {integrity: sha512-b6ZNP3Re8COmfZEpj4KQmbp2TuDKrLggDFLZa8FiJF68xE/oCsPXIuXUvAt8E4ht/5sq4Z/grlA+iGXaI2aeKQ==}
+    peerDependencies:
+      '@pinia/nuxt': ^0.4.4
+    dependencies:
+      '@nuxt/kit': 3.6.5(rollup@2.79.1)
+      '@pinia/nuxt': 0.4.11(rollup@2.79.1)(typescript@4.9.5)(vue@3.3.4)
+      defu: 6.1.2
+      pinia-plugin-persistedstate: 3.2.0(pinia@2.1.6)
+    transitivePeerDependencies:
+      - pinia
+      - rollup
+      - supports-color
+    dev: true
 
   /@pinia/nuxt@0.4.11(rollup@2.79.1)(typescript@4.9.5)(vue@3.3.4):
     resolution: {integrity: sha512-bhuNFngJpmBCdAqWguezNJ/oJFR7wvKieqiZrmmdmPR07XjsidAw8RLXHMZE9kUm32M9E6T057OBbG/22jERTg==}
@@ -8645,6 +8663,14 @@ packages:
   /pify@2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /pinia-plugin-persistedstate@3.2.0(pinia@2.1.6):
+    resolution: {integrity: sha512-tZbNGf2vjAQcIm7alK40sE51Qu/m9oWr+rEgNm/2AWr1huFxj72CjvpQcIQzMknDBJEkQznCLAGtJTIcLKrKdw==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.1.6(typescript@4.9.5)(vue@3.3.4)
     dev: true
 
   /pinia@2.1.6(typescript@4.9.5)(vue@3.3.4):
