@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { sanitizeUrl } from '@braintree/sanitize-url'
+import { useToast } from 'vue-toastification'
 import type { Review } from '~/types'
 import { formatDate } from '~/utils'
 
@@ -12,6 +13,8 @@ const prop = withDefaults(
 
 defineEmits(['close'])
 
+const toast = useToast()
+
 const reviewLink = ref<string>('prop.review.id')
 
 function copyReviewLink() {
@@ -21,10 +24,10 @@ function copyReviewLink() {
   navigator.clipboard
     .writeText(reviewLink.value)
     .then(() => {
-      toastSuccess('Link copied to clipboard!')
+      toast.success('Link copied to clipboard!')
     })
     .catch(() => {
-      toastError('Could not copy link to clipboard')
+      toast.error('Could not copy link to clipboard')
     })
 }
 
@@ -137,8 +140,8 @@ function shareOnPinterest() {
               </div>
             </div>
           </div>
-          <div class="pt-3">
-            <p class="b_text">
+          <div class="pt-4">
+            <p class="text-xl font-medium text-gray-900">
               Socials
             </p>
             <div class="flex flex-wrap items-center gap-x-4 pt-4">
@@ -168,7 +171,7 @@ function shareOnPinterest() {
           </div>
           <!-- Modal footer -->
           <div class="flex items-center justify-start py-8 space-x-2">
-            <button data-modal-hide="small-modal" type="button" class="border border-gray-200 rounded-lg bg-white px-8 py-3 text-sm font-medium text-gray-500 focus:z-10 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-200" @click.self="$emit(`close`)">
+            <button data-modal-hide="small-modal" type="button" class="btn_inner" @click.self="$emit(`close`)">
               Close
             </button>
           </div>

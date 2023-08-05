@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
-import type { Business } from '~/types'
+import type { IBusiness } from '~/types'
 
 interface businnessesStore {
-  businesses: Business[]
-  business_info: Record<string, Business>
+  businesses: IBusiness []
+  business_info: Record<string, IBusiness>
 }
+
 export const useBusinessesStore = defineStore('businessesStore', {
   state: (): businnessesStore => {
     return {

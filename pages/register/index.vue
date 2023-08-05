@@ -355,7 +355,7 @@ function resetFormValues() {
           </div>
 
           <p
-            class="normal_text py-5 text-center"
+            class="py-5 text-center normal_text"
           >
             {{ category.name }}
           </p>
@@ -383,7 +383,7 @@ function resetFormValues() {
             <component :is="biz.iconComponent" class="h-10 w-10 text-black" />
           </div>
           <p
-            class="normal_text py-4"
+            class="py-4 normal_text"
           >
             {{ biz.name }}
           </p>
@@ -417,14 +417,14 @@ function resetFormValues() {
       <div class="flex flex-wrap justify-center gap-4 py-7">
         <button
           v-for="(amenity, index) in amenities" :key="index"
-          class="b_card flex flex-col items-center justify-center"
+          class="flex flex-col items-center justify-center b_card"
           :class="selectedAmenities.find((selected) => selected === amenity.name) ? 'border-2 bg-gray-100 border-gray-900' : ''"
           @click="handleAmenity(amenity.name)"
         >
           <div>
             <component :is="amenity.iconComponent" class="h-8 w-8" />
           </div>
-          <p class="normal_text pt-3">
+          <p class="pt-3 normal_text">
             {{ amenity.name }}
           </p>
         </button>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useHead } from 'unhead'
+import { amenities } from '~/config/amenities'
 import { useReviewStore } from '~/store/reviews'
 import { useBusinessesStore } from '~/store/businesses'
 
@@ -23,6 +24,11 @@ const reviews = computed(() => reviewStore.$state.business_review[`${route.param
 
 businessesStore.fetchBusiness(route.params.id as string)
 // methods
+function getAmenitiesByNames(names: Array<string>) {
+  return amenities.filter(amenity => names.includes(amenity.name))
+}
+
+const amenitiesFromDB = getAmenitiesByNames(business.value.amenities)
 </script>
 
 <template>
@@ -30,12 +36,12 @@ businessesStore.fetchBusiness(route.params.id as string)
     <section
       class="w-ful mx-auto pb-4 antialiased md:w-3/5"
     >
-      <h2 class="text-2xl text-gray-900">
+      <h2 class="text-2xl font-semibold text-gray-900">
         {{ business.name }}
       </h2>
       <div class="flex flex-row items-center justify-between gap-x-2 text-center">
         <div class="">
-          <p class="b_text flex flex-row items-center gap-x-2">
+          <p class="flex flex-row items-center gap-x-2 b_text">
             <IconsLocation class="icon" />
             {{ business.county }}, {{ business.town }}
           </p>
@@ -57,13 +63,16 @@ businessesStore.fetchBusiness(route.params.id as string)
       </div>
       <!-- amenities setion -->
       <div class="pt-6">
-        <p class="text-2xl text-gray-900">
+        <p class="text-2xl font-semibold text-gray-900">
           What this business offers
         </p>
-        <div class="flex items-center gap-x-2 py-5">
-          <div v-for="(amenity, index) in business.amenities" :key="index" class="cursor-pointer border border-gray-200 rounded-full px-3 py-2 text-xs uppercase text-gray-500 hover:bg-gray-300">
-            <p>
-              {{ amenity }}
+        <div class="flex flex-wrap items-center gap-x-10 gap-y-4 py-10">
+          <div v-for="(amenity, index) in amenitiesFromDB" :key="index" class="flex flex-row items-center justify-center gap-x-4 b_card">
+            <div>
+              <component :is="amenity.iconComponent" class="h-9 w-9" />
+            </div>
+            <p class="pt-3 normal_text">
+              {{ amenity.name }}
             </p>
           </div>
         </div>
@@ -71,10 +80,10 @@ businessesStore.fetchBusiness(route.params.id as string)
       <!-- reviers -->
       <div class="pt-6">
         <div class="">
-          <p class="py-3 text-2xl text-gray-900">
+          <p class="py-3 text-2xl font-semibold text-gray-900">
             What people say about this business
           </p>
-          <div class="py-2">
+          <div class="py-4">
             <button class="flex items-center gap-x-2 btn" @click="showAddReviewPopup = !showAddReviewPopup">
               <IconsPen />
               Add Review
