@@ -14,7 +14,7 @@ const businessChunks = computed(() => businessStore.$state.businesses.slice(0, 6
       <h2 class="header_text">
         Top rated businesses
       </h2>
-      <p class="b_text text-center">
+      <p class="text-center b_text">
         Empowering local businesses
       </p>
     </div>

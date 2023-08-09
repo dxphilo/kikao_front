@@ -33,7 +33,7 @@ function convertDate(date: string | number) {
         <div class="">
           <div class="p-5">
             <div>
-              <p class="normal_text uppercase">
+              <p class="uppercase normal_text">
                 {{ article.category }}
               </p>
             </div>

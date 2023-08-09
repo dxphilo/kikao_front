@@ -55,7 +55,7 @@ async function login_user() {
       </div>
       <button
         type="submit"
-        class="btn_signup mt-10 flex items-center justify-center gap-x-4"
+        class="mt-10 flex items-center justify-center gap-x-4 btn_signup"
         @click="logIn()"
       >
         <GoogleIcon />

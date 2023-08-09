@@ -12,7 +12,7 @@ const reviewers = computed(() => reviewStore.$state.reviews)
       <h2 class="header_text">
         Top reviews
       </h2>
-      <p class="b_text text-center">
+      <p class="text-center b_text">
         Let your customers be your best brand ambassadors
       </p>
     </div>

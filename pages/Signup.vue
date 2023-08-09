@@ -77,7 +77,7 @@ async function send_data() {
           <h1 class="text-3xl font-extrabold text-black">
             Create your Account
           </h1>
-          <p class="normal_text py-10">
+          <p class="py-10 normal_text">
             Please note that phone verification is required for signup. Your phone number will be solely used for identity
             verification to ensure security.
           </p>
@@ -100,7 +100,7 @@ async function send_data() {
             </div>
             <button
               type="submit"
-              class="btn_signup mt-10 w-full flex items-center justify-center gap-x-4"
+              class="mt-10 w-full flex items-center justify-center gap-x-4 btn_signup"
               @click="verifyPhoneNumber"
             >
               <GoogleIcon />

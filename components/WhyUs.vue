@@ -8,7 +8,7 @@ import CheckCircleIcon from './icons/CheckCircleIcon.vue'
       <h1 class="header_text">
         Why you should join us
       </h1>
-      <p class="b_text text-center">
+      <p class="text-center b_text">
         Let your customers be your best brand ambassadors
       </p>
     </div>
@@ -22,7 +22,7 @@ import CheckCircleIcon from './icons/CheckCircleIcon.vue'
               Businesses
             </h1>
           </div>
-          <p class="normal_text py-3">
+          <p class="py-3 normal_text">
             Receive genuine ratings, reviews and feedback from your customers. Gain insight into customer preferences and boost your revenue
           </p>
         </div>
@@ -34,7 +34,7 @@ import CheckCircleIcon from './icons/CheckCircleIcon.vue'
             </h1>
           </div>
           <p
-            class="normal_text py-3"
+            class="py-3 normal_text"
           >
             Read unbiased ratings and reviews to make better choices. Share your personal story with products, services and Businesses
           </p>

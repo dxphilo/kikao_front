@@ -64,7 +64,7 @@ async function handleSubmit() {
       <h1 class="text-center text-[32px] font-normal leading-[36px] tracking-normal text-slate-900 md:text-left">
         Add a business post for your customers
       </h1>
-      <p class="leading[20px] !important whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
+      <p class="!important leading[20px] whitespace-pre-line pt-4 text-center text-[19px] font-light text-gray-500 md:text-left">
         Add a caption to your photos and make sure they are well-lit.
       </p>
       <div class="flex flex-wrap gap-4 py-7">

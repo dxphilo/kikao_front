@@ -17,7 +17,7 @@ const articles: Article[] = await queryContent('blog').sort({ createdAt: 1 }).fi
       <h1 class="block text-center text-5xl font-bold text-[#222222]">
         Kikao Blog
       </h1>
-      <p class="b_text text-center">
+      <p class="text-center b_text">
         Get the Inside Scoop: latest news and updates from us
       </p>
     </div>

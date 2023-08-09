@@ -140,7 +140,7 @@ function handlePreviousImage() {
       </p>
       <div class="flex justify-between py-5">
         <div class="flex items-center gap-x-3">
-          <button v-for="(reaction, index) in reactions" :key="index" class="btn_reaction flex items-center gap-x-2">
+          <button v-for="(reaction, index) in reactions" :key="index" class="flex items-center gap-x-2 btn_reaction">
             <component :is="reaction.iconComponent" class="h-5 w-5 rounded-full" />
             <p class="text-xs">
               1

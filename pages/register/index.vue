@@ -170,22 +170,20 @@ function handleBiz(name: string): void {
 }
 
 function getUserLocation() {
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 60000,
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (currentPosition) => {
+        location.value = `Lat: ${currentPosition.coords.latitude}, Lng: ${currentPosition.coords.longitude}`
+      },
+      (error) => {
+        console.error(error)
+        toast.error('Error getting location. Please make sure you have allowed location access for this website.')
+      },
+    )
   }
-
-  function success(position: any) {
-    const crd = position.coords
-    location.value = `Lat: ${crd.latitude}, Lng: ${crd.longitude}`
+  else {
+    toast.error('Geolocation is not supported in this browser')
   }
-
-  function error(error: any) {
-    toast.error(`ERROR(${error.code}): ${error.message}`)
-  }
-
-  window.navigator.geolocation.getCurrentPosition(success, error, options)
 }
 
 function handleAmenity(name: string) {
@@ -400,8 +398,8 @@ function resetFormValues() {
       >
         Make it easy for customers to find your business.
       </p>
-      <div class="my-20 h-80 w-4/5 flex items-center justify-center border-3 rounded-xl border-dotted md:w-full">
-        <Location class="h-10 w-10 cursor-pointer" @click="getUserLocation" />
+      <div class="my-20 h-40 w-3/5 flex items-center justify-center border-3 rounded-xl border-dotted md:w-full">
+        <Location class="h-10 w-10 cursor-pointer" @click="getUserLocation()" />
       </div>
     </div>
     <!-- step 3 add business amenities -->

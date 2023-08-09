@@ -32,7 +32,7 @@ withDefaults(
           </a>
         </li>
         <li class="team_social_icons">
-          <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="team_a_link text-[#ea4c89]">
+          <a :href="profile.website" target="_blank" rel="noopener noreferrer" class="text-[#ea4c89] team_a_link">
 
             <IconsSocialsWebsite class="icon" />
           </a>

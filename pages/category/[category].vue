@@ -29,7 +29,7 @@ const businesses = computed(() =>
           <h2 class="py-5 text-center text-4xl font-extrabold leading-snug tracking-normal text-white lg:text-5xl">
             {{ category.name }}
           </h2>
-          <p class="b_text pt-4 text-center">
+          <p class="pt-4 text-center b_text">
             {{ category.description }}
           </p>
           <div class="flex items-center justify-center pt-4">
@@ -48,7 +48,7 @@ const businesses = computed(() =>
         <p class="b_text">
           Businesses for the category <span class="text-red-500">{{ route.params.category }}</span> are not available at the moment
         </p>
-        <button class="btn_inner my-10" @click="$router.push('/category')">
+        <button class="my-10 btn_inner" @click="$router.push('/category')">
           Back to Categories
         </button>
       </div>

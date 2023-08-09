@@ -115,11 +115,11 @@ function handlePreviousImage() {
                 </div>
               </div>
               <div class="flex flex-row justify-between py-1">
-                <p class="normal_text flex flex-row items-center gap-x-2 capitalize">
+                <p class="flex flex-row items-center gap-x-2 capitalize normal_text">
                   <IconsLocation class="icon text-gray-900" />
                   {{ business.town }}
                 </p>
-                <p class="normal_text capitalize">
+                <p class="capitalize normal_text">
                   {{ business.category }}
                 </p>
               </div>

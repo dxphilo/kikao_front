@@ -35,7 +35,7 @@ const teamMembers: Person[] = [
       >
         Our Team
       </h1>
-      <p class="b_text py-14 text-center">
+      <p class="py-14 text-center b_text">
         Meet the team behind Kikao
       </p>
       <div class="mx-auto w-4/5 flex flex-wrap items-center justify-center gap-x-20 py-10">
@@ -48,7 +48,7 @@ const teamMembers: Person[] = [
       <div
         class="mx-auto w-2/4 flex flex-wrap items-center justify-center py-10"
       >
-        <p class="normal_text text-center">
+        <p class="text-center normal_text">
           If you believe in this project, are a team player, ready to roll up
           your sleeves and help drive the project forward and bring our vision
           to life, then we would love to hear from you! Please reach out by email

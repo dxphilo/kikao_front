@@ -8,7 +8,7 @@ import { categories } from '~/config/categories'
       <h1 class="header_text">
         Categories
       </h1>
-      <p class="b_text text-center">
+      <p class="text-center b_text">
         Browse popular categories
       </p>
     </div>
@@ -26,7 +26,7 @@ import { categories } from '~/config/categories'
         <h3 class="text-center text-[22px] font-semibold leading-6 tracking-tight text-[#222222]">
           {{ category.name }}
         </h3>
-        <p class="normal_text pt-2 text-center">
+        <p class="pt-2 text-center normal_text">
           {{ category.description }}
         </p>
       </RouterLink>

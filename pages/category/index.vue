@@ -10,7 +10,7 @@ useHead({
 <template>
   <div class="category h-72 w-full flex items-center justify-center">
     <div>
-      <h1 class="header_text py-5">
+      <h1 class="py-5 header_text">
         Categories
       </h1>
       <p class="py-3 text-center text-xl font-light text-white dark:text-gray-400">
