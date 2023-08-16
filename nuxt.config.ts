@@ -12,15 +12,6 @@ export default defineNuxtConfig({
     '@sidebase/nuxt-auth',
     '@nuxt/content',
   ],
-  auth: {
-    isEnabled: true,
-    // The origin is set to the development origin. Change this when deploying to production by setting `origin` in this config before build-time or by exporting `AUTH_ORIGIN` by running `export AUTH_ORIGIN=...`
-    origin: 'http://kikao.co.ke',
-    // The base path to the authentication endpoints. Change this if you want to add your auth-endpoints at a non-default location
-    basePath: '/api/auth',
-    // Whether to automatically set the callback url to the page the user tried to visit when the middleware stopped them. This is useful to disable this when using the credentials provider, as it does not allow a `callbackUrl`. Setting this to a string-value will result in that being used as the callbackUrl path.
-    addDefaultCallbackUrl: true,
-  },
   experimental: {
     // when using generate, payload js assets included in sw precache manifest
     // but missing on offline, disabling extraction it until fixed
@@ -64,7 +55,9 @@ export default defineNuxtConfig({
       ignore: ['/hi'],
     },
   },
-
+  auth: {
+    origin: 'http://kikao.co.ke',
+  },
   app: {
     head: {
       viewport: 'width=device-width,initial-scale=1',
