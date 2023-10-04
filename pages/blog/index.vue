@@ -13,17 +13,6 @@ const articles: Article[] = await queryContent('blog').sort({ createdAt: 1 }).fi
 
 <template>
   <div>
-
-
-
-
-
-
-
-
-
-
-
     <div class="pt-24">
       <h1 class="block text-center text-5xl font-bold text-[#222222]">
         Kikao Blog
