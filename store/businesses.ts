@@ -20,8 +20,8 @@ export const useBusinessesStore = defineStore('businessesStore', {
       const config = useRuntimeConfig()
       try {
         const response = await axios.get(`${config.public.BASE_URL}/businesses/`)
-        const data = await response.data
-        this.businesses = data
+        const res_data = await response.data
+        this.businesses = res_data.data
       }
       catch (error) {
         handleError(error)

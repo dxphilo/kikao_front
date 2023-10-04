@@ -21,14 +21,11 @@ if (business_id)
   reviewStore.getBusinessReviews(String(business_id.value))
 
 const reviews = computed(() => reviewStore.$state.business_review[`${route.params.id}`])
+const amenitiesFromDB = computed(() => {
+  return amenities.filter(amenity => business.value.amenities.includes(amenity.name))
+})
 
 businessesStore.fetchBusiness(route.params.id as string)
-// methods
-function getAmenitiesByNames(names: Array<string>) {
-  return amenities.filter(amenity => names.includes(amenity.name))
-}
-
-const amenitiesFromDB = getAmenitiesByNames(business.value.amenities)
 </script>
 
 <template>

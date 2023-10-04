@@ -20,7 +20,7 @@ const businesses = computed(() =>
   <div v-if="category">
     <div
 
-      class="relative z-10 h-96 w-full bg-cover bg-center bg-no-repeat object-cover"
+      class="relative z-10 h-80 w-full bg-cover bg-center bg-no-repeat object-cover"
       :style="{ backgroundImage: `url(${category.image})` }"
     >
       <div class="absolute inset-0 bg-gray-900 opacity-75" />

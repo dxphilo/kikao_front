@@ -29,7 +29,7 @@ export default defineConfig({
     ['team_social_icons', 'h-10 w-10 flex cursor-pointer items-center justify-center rounded-full hover:border hover:bg-gray-200'],
     ['team_a_link', 'flex items-center justify-center text-gray-900 hover:text-gray-900 dark:hover:text-white'],
     ['btn_green', 'text-centet cursor-pointer rounded-full font-normal border inline-block bg-green-500 px-4 py-2 text-center text-sm text-white hover:bg-green-600'],
-    ['btn_inner', 'px-6 py-3 rounded-full inline-block border border-gray-300 text-sm font-normal text-black cursor-pointer hover:bg-gray-300 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-200'],
+    ['btn_inner', 'px-6 py-3 rounded-full inline-block border border-gray-300 text-base font-normal text-black cursor-pointer hover:bg-gray-300 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-200'],
     ['btn_inner_green', 'px-6 py-3 rounded-full inline-block border text-sm bg-green-500 font-normal text-white cursor-pointer hover:bg-green-600 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50'],
     ['btn_signup', 'px-6 py-4 rounded-lg inline-block border border-gray-300 text-base font-normal text-gray-900 cursor-pointer hover:bg-gray-300 disabled:cursor-default disabled:bg-gray-600 disabled:opacity-50 focus:outline-none focus:z-10 focus:ring-4 focus:ring-gray-200'],
   ],

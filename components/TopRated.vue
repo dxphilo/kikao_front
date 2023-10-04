@@ -20,8 +20,8 @@ const businessChunks = computed(() => businessStore.$state.businesses.slice(0, 6
     </div>
     <div class="w-full flex flex-wrap items-center justify-center gap-8 pb-10">
       <RatingCard
-        v-for="(chunk, index) in businessChunks" :key="index"
-        :business="chunk"
+        v-for="(business, index) in businessChunks" :key="index"
+        :business="business"
       />
     </div>
   </div>

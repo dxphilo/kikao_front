@@ -95,12 +95,11 @@ async function submitReview() {
     const formData = new FormData()
 
     formData.append('text', text.value)
-    // TODO: change this username to be dynamically located
     formData.append('user_id', userStore.$state.user_info.id)
     formData.append('rating', String(rating.value))
     formData.append('business_id', business_id.value as string)
 
-    if (selectedFile && selectedFile.value && selectedFile.value.length > 0) {
+    if (selectedFile && selectedFile.value && selectedFile.value.length >= 1) {
       for (let j = 0; j < selectedFile.value.length; ++j)
         formData.append('images', selectedFile.value[j])
     }

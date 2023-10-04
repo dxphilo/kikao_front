@@ -2,15 +2,14 @@
 import NextIcon from '@/components/icons/NextIcon.vue'
 import PreviousIcon from '@/components/icons/PreviousIcon.vue'
 
-import type { businesstype } from '@/types'
+import type { Business } from '@/types'
 
 const props = withDefaults(
   defineProps<{
-    business: businesstype
+    business: Business
   }>(),
   {},
 )
-
 const imageIndex = ref<number>(0)
 const showPrevNext = ref<boolean>(false)
 
@@ -52,7 +51,7 @@ function handlePreviousImage() {
           </transition>
           <!-- Slider indicators -->
           <div
-            v-if="props.business.images.length > 1"
+            v-if="props.business.images.length && props.business.images.length > 0"
             class="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 space-x-2"
           >
             <button
@@ -101,7 +100,7 @@ function handlePreviousImage() {
           </button>
         </div>
         <div class="">
-          <router-link :to="`/biashara/${business.id}`" class="hover:bg-gray-100">
+          <router-link :to="`/shop/${business.id}`" class="hover:bg-gray-100">
             <div class="">
               <div class="flex items-center justify-between pt-1">
                 <p class="truncate pt-2 text-[16px] font-medium text-black">
