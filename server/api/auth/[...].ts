@@ -18,5 +18,5 @@ export default NuxtAuthHandler({
       },
     }),
   ],
-  secret: 'this-is-not-super-secret-app',
+  secret: process.env.NEXTAUTH_SECRET,
 })

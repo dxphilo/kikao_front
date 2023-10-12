@@ -3,6 +3,7 @@ import { appDescription } from './constants/index'
 
 export default defineNuxtConfig({
   modules: [
+    '@pinia-plugin-persistedstate/nuxt',
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@pinia/nuxt',
@@ -20,14 +21,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      AUTH0_DOMAIN: 'dev-4ul2pemi.us.auth0.com',
       BASE_URL: process.env.NUXT_ENV_DOMAIN,
       GOOGLE_CLIENTID: process.env.GOOGLE_CLIENTID,
       GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-      TWILIO_ACCOUNT_SID: 'ACabd08e8a7825acef5a15a4946d7e1d88',
-      AUTH0_AUTH_TOKEN: '06e32209cc24447e9c656ff47938807a',
-      AUTH0_CLIENTID: 'CoSkVNZ49yEzwh1qXncQ6KFWvQgBqqvN',
-      AUTH0_CLIENSECRET: 'rDYULFym-_4bij1zvsS_TYHvgkCp3CV4M47eSN8aHGbft15Syz4gwkEqE9z4aRfg',
     },
   },
   content: {
@@ -59,7 +55,6 @@ export default defineNuxtConfig({
       ignore: ['/hi'],
     },
   },
-
   app: {
     head: {
       viewport: 'width=device-width,initial-scale=1',

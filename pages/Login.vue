@@ -47,7 +47,7 @@ async function login_user() {
 
 <template>
   <div v-if="status === 'unauthenticated'" class="h-[500px]">
-    <div class="w-full pt-46 text-[14px] leading-6 text-black md:mx-auto md:w-[400px] md:px-0">
+    <div class="w-full flex flex-col items-center justify-center pt-46 text-[14px] leading-6 text-black md:mx-auto md:w-[400px] md:px-0">
       <div class="w-full flex items-center justify-center pb-6">
         <h1 class="text-3xl font-semibold">
           Log in to Kikao
@@ -55,7 +55,7 @@ async function login_user() {
       </div>
       <button
         type="submit"
-        class="mt-10 block w-full flex cursor-pointer items-center justify-center gap-x-4 rounded-md bg-gray-200 px-10 py-4 text-center text-lg hover:bg-gray-300"
+        class="mt-10 flex items-center justify-center gap-x-4 btn_signup"
         @click="logIn()"
       >
         <GoogleIcon />

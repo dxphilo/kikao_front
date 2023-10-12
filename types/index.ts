@@ -6,15 +6,18 @@ export interface category {
   iconComponent: any
   image: string
 }
-export interface businesstype {
+export interface IBusiness {
   id: string
   name: string
   handle: string
   reviews: number
   reviewScore: number
   location: string
+  county: string
+  town: string
   opening: boolean
   images: string[]
+  amenities: string[]
   businessDescription: string
   category: string
   creationDate: string

@@ -10,6 +10,7 @@ export const useRootStore = defineStore('rootStore', {
       },
     }
   },
+  persist: true,
   actions: {
     toggleShowAddPopup() {
       this.show_add_popup = !this.show_add_popup

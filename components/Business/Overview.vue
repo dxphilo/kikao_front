@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { useHead } from 'unhead'
-import ChatIcon from '@/components/icons/ChatIcon.vue'
+import { amenities } from '~/config/amenities'
 import { useReviewStore } from '~/store/reviews'
 import { useBusinessesStore } from '~/store/businesses'
 
 const route = useRoute()
-const router = useRouter()
-const review = useReviewStore()
+const reviewStore = useReviewStore()
 const businessesStore = useBusinessesStore()
 
 const showPopup = ref<boolean>(false)
@@ -19,107 +18,80 @@ useHead({
 })
 
 if (business_id)
-  review.getBusinessReviews(String(business_id.value))
+  reviewStore.getBusinessReviews(String(business_id.value))
 
-// methods
-function handleReview() {
-  if (route.name === 'Biashara-id')
-    return
+const reviews = computed(() => reviewStore.$state.business_review[`${route.params.id}`])
+const amenitiesFromDB = computed(() => {
+  return amenities.filter(amenity => business.value.amenities.includes(amenity.name))
+})
 
-  router.go(-1)
-}
+businessesStore.fetchBusiness(route.params.id as string)
 </script>
 
 <template>
-  <div v-if="business">
+  <div v-if="business" class="py-10">
     <section
-      class="w-full pb-4 antialiased"
+      class="w-ful mx-auto pb-4 antialiased md:w-3/5"
     >
-      <header class="w-full">
-        <div class="overview relative h-72 w-full bg-[url('https://images.pexels.com/photos/1082528/pexels-photo-1082528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover object-cover">
-          <button class="absolute right-10 top-10 z-10 flex cursor-pointer items-center gap-x-1 border border-gray-200 rounded bg-white px-4 py-1.5 text-base md:right-40 hover:bg-gray-100" @click="showPopup = !showPopup">
-            <IconsViewAllIcon class="h-6 w-6" />
-            <p>
-              View all {{ business.images.length }} photos
-            </p>
-          </button>
-        </div>
-      </header>
-    </section>
-    <div class="absolute left-1/4 top-77 mx-auto w-2/5 flex items-center justify-center rounded bg-white text-[18px]">
-      <button
-        class="group flex-1 py-4 text-center font-normal text-gray-500 hover:text-gray-900"
-        :class="[$route.name === 'Biashara-id' ? ' border-b-2 border-gray-500 text-gray-900' : ' ']" @click="handleReview"
-      >
-        <div class="flex items-center justify-center px-4">
-          <ChatIcon class="h-6 w-6" />
-          <p>Reviews</p>
-        </div>
-      </button>
-      <router-link
-        to="/biashara/posts"
-        class="group flex-1 py-4 text-center font-normal text-gray-500 hover:text-gray-900" :class="[$route.path === '/biashara/posts' ? ' border-b-2 border-gray-500 text-gray-900' : ' ']"
-      >
-        <div class="flex items-center justify-center gap-x-4">
-          <IconsPostAdd class="h-6 w-6" />
-          <p>Posts</p>
-        </div>
-      </router-link>
-    </div>
-    <div class="mx-auto w-full flex flex-col md:w-2/5">
-      <div class="flex flex-col gap-x-2">
-        <div class="flex flex-row items-center gap-x-1 pt-5">
-          <h2 class="text-center text-5xl font-bold text-[#222222]">
-            {{ business.name }}
-          </h2>
-          <IconsVerifiedIcon class="h-5 w-5 rounded-full text-indigo-500 -right-5" />
-        </div>
-        <div class="flex items-center gap-x-4 py-3">
-          <p class="leading[20px] !important inline-flex whitespace-pre-line text-center text-[14px] font-light capitalize text-gray-400">
-            {{ business.category }}
+      <h2 class="text-2xl font-semibold text-gray-900">
+        {{ business.name }}
+      </h2>
+      <div class="flex flex-row items-center justify-between gap-x-2 text-center">
+        <div class="">
+          <p class="flex flex-row items-center gap-x-2 b_text">
+            <IconsLocation class="icon" />
+            {{ business.county }}, {{ business.town }}
           </p>
-          <div class="leading[20px] !important flex gap-x-4 whitespace-pre-line text-center text-[14px]">
-            <div class="flex items-center gap-x-2">
-              <IconsStartFull class="h-4 w-4 text-yellow-500" />
-              <p class="font-medium">
-                4.5
-              </p>
-              <p class="font-light text-gray-400">
-                Rating
-              </p>
+        </div>
+        <div class="flex items-center gap-x-3">
+          <p class="flex cursor-pointer items-center gap-x-2 rounded-lg px-3 py-1 text-sm underline underline-offset-6 hover:bg-gray-100">
+            <IconsShareIcon class="icon" />
+            Share
+          </p>
+          <p class="flex cursor-pointer items-center gap-x-2 rounded-lg px-3 py-1 text-sm underline underline-offset-6 hover:bg-gray-100">
+            <IconsLoveIcon class="icon" />
+            Save
+          </p>
+        </div>
+      </div>
+      <!-- images sesction -->
+      <div class="my-4 w-full border border-gray-300">
+        <img :src="business.images[0]" class="h-[400px] w-full rounded-lg bg-cover object-cover" alt="">
+      </div>
+      <!-- amenities setion -->
+      <div class="pt-6">
+        <p class="text-2xl font-semibold text-gray-900">
+          What this business offers
+        </p>
+        <div class="flex flex-wrap items-center gap-x-10 gap-y-4 py-10">
+          <div v-for="(amenity, index) in amenitiesFromDB" :key="index" class="flex flex-row items-center justify-center gap-x-4 b_card">
+            <div>
+              <component :is="amenity.iconComponent" class="h-9 w-9" />
             </div>
-            <div class="flex items-center gap-x-2">
-              <span class="font-medium">
-                20 </span>
-              <p class="leading[20px] !important inline-flex whitespace-pre-line text-[14px] font-light text-gray-400">
-                reviews
-              </p>
-            </div>
-            <div class="flex items-center gap-x-2">
-              <span class="font-medium">
-                30 </span>
-              <p class="leading[20px] !important inline-flex whitespace-pre-line text-[14px] font-light text-gray-400">
-                posts
-              </p>
-            </div>
+            <p class="pt-3 normal_text">
+              {{ amenity.name }}
+            </p>
           </div>
         </div>
       </div>
-      <div class="flex items-center gap-x-10">
-        <p class="leading[20px] !important inline-flex whitespace-pre-line text-center text-[17px] font-medium text-green-500">
-          Open Now
-        </p>
-
-        <a href="http://" target="_blank" rel="noopener noreferrer" class="flex items-center gap-x-2"><IconsLinkExternal /> Website</a>
-        <button
-          to="/register"
-          class="flex items-center justify-center gap-x-2 border border-gray-400 rounded-full px-4 py-2 text-center text-black lg:block hover:bg-gray-100 hover:text-gray-900" :class="$route.path === '/register' ? ` bg-gray-100 ` : ` `"
-          @click=" showAddReviewPopup = !showAddReviewPopup"
-        >
-          Review business
-        </button>
+      <!-- reviers -->
+      <div class="pt-6">
+        <div class="">
+          <p class="py-3 text-2xl font-semibold text-gray-900">
+            What people say about this business
+          </p>
+          <div class="py-4">
+            <button class="flex items-center gap-x-2 btn" @click="showAddReviewPopup = !showAddReviewPopup">
+              <IconsPen />
+              Add Review
+            </button>
+          </div>
+        </div>
+        <div class="flex flex-row flex-wrap gap-x-3 gap-y-6 py-5">
+          <BusinessReview v-for="(review, index) in reviews" :key="index" :review="review" />
+        </div>
       </div>
-    </div>
+    </section>
   </div>
   <div v-else>
     <p>loading ...</p>
@@ -136,10 +108,4 @@ function handleReview() {
 </template>
 
 <style>
-.overview{
-  background-image: url('https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 </style>

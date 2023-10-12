@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { defineProps, ref, withDefaults } from 'vue'
 import NextIcon from '@/components/icons/NextIcon.vue'
 import PreviousIcon from '@/components/icons/PreviousIcon.vue'
 
-import type { businesstype } from '@/types'
+import type { Business } from '@/types'
 
 const props = withDefaults(
   defineProps<{
-    business: businesstype
+    business: Business
   }>(),
   {},
 )
-
 const imageIndex = ref<number>(0)
 const showPrevNext = ref<boolean>(false)
 
@@ -53,7 +51,7 @@ function handlePreviousImage() {
           </transition>
           <!-- Slider indicators -->
           <div
-            v-if="props.business.images.length > 1"
+            v-if="props.business.images.length && props.business.images.length > 0"
             class="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 space-x-2"
           >
             <button
@@ -102,7 +100,7 @@ function handlePreviousImage() {
           </button>
         </div>
         <div class="">
-          <router-link :to="`/biashara/${business.id}`" class="hover:bg-gray-100">
+          <router-link :to="`/shop/${business.id}`" class="hover:bg-gray-100">
             <div class="">
               <div class="flex items-center justify-between pt-1">
                 <p class="truncate pt-2 text-[16px] font-medium text-black">
@@ -115,10 +113,15 @@ function handlePreviousImage() {
                   <span class="font-medium text-gray-800">{{ business.reviewScore }}</span>
                 </div>
               </div>
-              <p class="py-1 text-base font-light capitalize text-gray-500 dark:text-gray-400">
-                {{ business.category }}
-              </p>
-
+              <div class="flex flex-row justify-between py-1">
+                <p class="flex flex-row items-center gap-x-2 capitalize normal_text">
+                  <IconsLocation class="icon text-gray-900" />
+                  {{ business.town }}
+                </p>
+                <p class="capitalize normal_text">
+                  {{ business.category }}
+                </p>
+              </div>
               <div class="flex items-center justify-between gap-x-3 truncate py-1 text-[14px] text-gray-500">
                 <div class="flex items-center gap-x-2">
                   <p class="truncate text-[16px] font-medium text-black">

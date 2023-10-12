@@ -12,7 +12,7 @@ const socials = [
 const resources = [
   {
     name: 'Privacy',
-    link: '/privacy',
+    link: '/blog/privacy',
   },
   {
     name: 'Guide',
@@ -94,10 +94,10 @@ const Help = [
               Product
             </h2>
             <ul class="flex flex-col gap-y-2 font-light tracking-wide text-gray-500">
-              <li v-for="{ name, link } in product" :key="name" class="pb-1">
+              <li v-for="{ name, link } in product" :key="name">
                 <a
                   :href="`${link}`"
-                  class="leading[20px] !important whitespace-pre-line text-center text-[16px] hover:text-black hover:underline hover:underline-offset-7"
+                  class="text_footer_link"
                 >
                   {{ name }}
                 </a>
@@ -114,10 +114,10 @@ const Help = [
               Resources
             </h2>
             <ul class="flex flex-col gap-y-3 font-light tracking-wide text-gray-500">
-              <li v-for="{ name, link } in resources" :key="name" class="pb-1">
+              <li v-for="{ name, link } in resources" :key="name">
                 <a
                   :href="`${link}`"
-                  class="leading[20px] !important whitespace-pre-line text-center text-[16px] hover:text-black hover:underline hover:underline-offset-7"
+                  class="text_footer_link"
                 >
                   {{ name }}
                 </a>
@@ -134,10 +134,10 @@ const Help = [
               Help
             </h2>
             <ul class="flex flex-col gap-y-2 font-light tracking-wide tracking-wide text-gray-500">
-              <li v-for="{ name, link } in Help" :key="name" class="pb-1">
+              <li v-for="{ name, link } in Help" :key="name">
                 <a
                   :href="`${link}`"
-                  class="leading[20px] !important whitespace-pre-line text-center text-[16px] hover:text-black hover:underline hover:underline-offset-7"
+                  class="text_footer_link"
                 >
                   {{ name }}
                 </a>

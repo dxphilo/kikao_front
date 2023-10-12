@@ -37,7 +37,7 @@ useHead({
       <h1 class="heading text-center">
         {{ data.article.title }}
       </h1>
-      <div class="flex flex-wrap justify-center py-3 text-xl font-light text-gray-500">
+      <div class="flex flex-wrap justify-center py-3 normal_text">
         <p>
           {{ data.article.description }}
         </p>

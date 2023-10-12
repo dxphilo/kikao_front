@@ -11,17 +11,17 @@ const businessChunks = computed(() => businessStore.$state.businesses.slice(0, 6
 <template>
   <div class="mx-auto w-4/5">
     <div class="py-10 text-center">
-      <h2 class="block text-center text-5xl font-medium text-[#222222]">
+      <h2 class="header_text">
         Top rated businesses
       </h2>
-      <p class="pt-4 text-center text-xl font-light text-gray-500 dark:text-gray-400">
+      <p class="text-center b_text">
         Empowering local businesses
       </p>
     </div>
     <div class="w-full flex flex-wrap items-center justify-center gap-8 pb-10">
       <RatingCard
-        v-for="(chunk, index) in businessChunks" :key="index"
-        :business="chunk"
+        v-for="(business, index) in businessChunks" :key="index"
+        :business="business"
       />
     </div>
   </div>

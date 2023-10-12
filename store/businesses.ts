@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
-import type { Business } from '~/types'
+import type { IBusiness } from '~/types'
 
 interface businnessesStore {
-  businesses: Business[]
-  business_info: Record<string, Business>
+  businesses: IBusiness []
+  business_info: Record<string, IBusiness>
 }
+
 export const useBusinessesStore = defineStore('businessesStore', {
   state: (): businnessesStore => {
     return {
@@ -13,13 +14,14 @@ export const useBusinessesStore = defineStore('businessesStore', {
       business_info: {},
     }
   },
+  persist: true,
   actions: {
     async fetchBusinesses() {
       const config = useRuntimeConfig()
       try {
         const response = await axios.get(`${config.public.BASE_URL}/businesses/`)
-        const data = await response.data
-        this.businesses = data
+        const res_data = await response.data
+        this.businesses = res_data.data
       }
       catch (error) {
         handleError(error)

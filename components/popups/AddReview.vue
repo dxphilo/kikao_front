@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { defineEmits } from 'vue'
 import { useToast } from 'vue-toastification'
 import axios from 'axios'
 import PhotosIcon from '@/components/icons/PhotosIcon.vue'
 import Delete from '@/components/icons/Delete.vue'
+import { useUserStore } from '@/store/user'
 
 const emit = defineEmits(['close'])
 
 const route = useRoute()
+const userStore = useUserStore()
 const config = useRuntimeConfig()
 const toast = useToast()
 const rating = ref(0)
@@ -80,7 +81,7 @@ async function submitReview() {
     return toast.info(`Your review should be at least 350 characters, write ${350 - text.value.length} more characters`)
 
   loading.value = true
-  const access_token = window.localStorage.getItem('kikao_token')
+  const access_token = userStore.$state.user_info.access_token
   const headers = {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -94,12 +95,11 @@ async function submitReview() {
     const formData = new FormData()
 
     formData.append('text', text.value)
-    // TODO: change this username to be dynamically located
-    formData.append('user_id', '41d8ec7e-ff7d-4594-92f9-1ba815b8d9e7')
+    formData.append('user_id', userStore.$state.user_info.id)
     formData.append('rating', String(rating.value))
     formData.append('business_id', business_id.value as string)
 
-    if (selectedFile && selectedFile.value && selectedFile.value.length > 0) {
+    if (selectedFile && selectedFile.value && selectedFile.value.length >= 1) {
       for (let j = 0; j < selectedFile.value.length; ++j)
         formData.append('images', selectedFile.value[j])
     }
@@ -169,7 +169,7 @@ function toggleImageUpload() {
               </button>
             </div>
             <div>
-              <button class="border border-gray-200 rounded-full px-4 py-3 text-sm font-light" @click="toggleImageUpload()">
+              <button v-if="!showAddImage" class="btn" @click="toggleImageUpload()">
                 Add Images
               </button>
               <div v-if="showAddImage" class="mb-5 flex flex-wrap gap-y-2">
@@ -220,12 +220,14 @@ function toggleImageUpload() {
           </div>
           <!-- Modal footer -->
           <div class="flex items-center justify-between pt-8 space-x-2">
-            <button data-modal-hide="small-modal" type="button" class="border border-gray-200 rounded-lg bg-white px-8 py-3 text-sm font-medium text-gray-500 focus:z-10 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-200" @click.self="$emit(`close`)">
+            <button data-modal-hide="small-modal" type="button" class="btn" @click.self="$emit(`close`)">
               Cancel
             </button>
-            <button data-modal-hide="small-modal" type="button" class="border rounded-lg bg-green-400 px-8 py-3 text-sm font-medium text-white focus:z-10 hover:bg-green-500 focus:outline-none focus:ring-4" @click="submitReview()">
+            <button data-modal-hide="small-modal" type="button" class="btn_green" @click="submitReview()">
               <IconsLoading v-if="loading" />
-              <p>Submit</p>
+              <p v-else>
+                Submit
+              </p>
             </button>
           </div>
         </div>

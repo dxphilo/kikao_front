@@ -13,6 +13,7 @@ export const useReviewStore = defineStore('reviewsStore', {
       business_review: {},
     }
   },
+  persist: true,
   actions: {
     async getReviews() {
       const config = useRuntimeConfig()

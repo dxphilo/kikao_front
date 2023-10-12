@@ -20,7 +20,7 @@ const businesses = computed(() =>
   <div v-if="category">
     <div
 
-      class="relative z-10 h-96 w-full bg-cover bg-center bg-no-repeat object-cover"
+      class="relative z-10 h-80 w-full bg-cover bg-center bg-no-repeat object-cover"
       :style="{ backgroundImage: `url(${category.image})` }"
     >
       <div class="absolute inset-0 bg-gray-900 opacity-75" />
@@ -29,7 +29,7 @@ const businesses = computed(() =>
           <h2 class="py-5 text-center text-4xl font-extrabold leading-snug tracking-normal text-white lg:text-5xl">
             {{ category.name }}
           </h2>
-          <p class="pt-4 text-xl text-gray-300">
+          <p class="pt-4 text-center b_text">
             {{ category.description }}
           </p>
           <div class="flex items-center justify-center pt-4">
@@ -44,12 +44,12 @@ const businesses = computed(() =>
       <RatingCard v-for="(business, index) in businesses" :key="index" :business="business" />
     </div>
     <div v-else class="flex items-center justify-center py-20 text-center">
-      <div>
-        <p class="text-base">
+      <div class="">
+        <p class="b_text">
           Businesses for the category <span class="text-red-500">{{ route.params.category }}</span> are not available at the moment
         </p>
-        <button class="my-8 rounded bg-green-400 px-6 py-3 text-white hover:bg-green-500" @click="$router.push('/category')">
-          Go to Categories
+        <button class="my-10 btn_inner" @click="$router.push('/category')">
+          Back to Categories
         </button>
       </div>
     </div>
