@@ -55,9 +55,6 @@ export default defineNuxtConfig({
       ignore: ['/hi'],
     },
   },
-  auth: {
-    origin: 'http://kikao.co.ke',
-  },
   app: {
     head: {
       viewport: 'width=device-width,initial-scale=1',
