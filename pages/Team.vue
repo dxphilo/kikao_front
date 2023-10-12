@@ -28,10 +28,10 @@ const teamMembers: Person[] = [
 </script>
 
 <template>
-  <section class="min-h-screen dark:bg-gray-900">
+  <section class="min-h-screen">
     <div class="mx-auto px-6 py-20 container">
       <h1
-        class="h2 text-center text-3xl font-medium lg:text-4xl dark:text-white"
+        class="h2 text-center text-3xl font-medium lg:text-4xl"
       >
         Our Team
       </h1>
