@@ -42,10 +42,9 @@ export default defineConfig({
     presetTypography(),
     presetWebFonts({
       fonts: {
-        'sans': 'DM Sans',
-        'serif': 'DM Serif Display',
-        'mono': 'DM Mono',
-        'san-mono': 'Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif',
+        sans: 'DM Sans',
+        serif: 'DM Serif Display',
+        mono: 'DM Mono',
       },
     }),
   ],
