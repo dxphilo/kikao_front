@@ -30,7 +30,7 @@ export const useReviewStore = defineStore('reviewsStore', {
     async getBusinessReviews(business_id: string) {
       const config = useRuntimeConfig()
       try {
-        const response = await axios.get(`${config.public.BASE_URL}/reviews/${business_id}`)
+        const response = await axios.get(`${config.public.BASE_URL}/review/${business_id}`)
 
         const data = await response.data
         this.$state.business_review[business_id] = data.data
@@ -39,6 +39,17 @@ export const useReviewStore = defineStore('reviewsStore', {
         handleError(error)
       }
     },
+    updateReview(review: Review, business_id: string) {
+      const business_reviews = this.$state.business_review[business_id]
+
+      if (!business_reviews) {
+        this.$state.business_review[business_id] = [review]
+        return
+      }
+      business_reviews.push(review)
+      this.$state.business_review[business_id] = business_reviews
+    }
+    ,
 
   },
   getters: {

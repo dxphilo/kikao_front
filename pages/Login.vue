@@ -3,10 +3,12 @@ import { useHead } from 'unhead'
 import { useToast } from 'vue-toastification'
 import axios from 'axios'
 import GoogleIcon from '~/components/icons/GoogleIcon.vue'
+import { useUserStore } from '~/store/user'
 
 const { status, signIn, data } = useAuth()
 const config = useRuntimeConfig()
 const router = useRouter()
+const userStore = useUserStore()
 
 useHead({
   title: 'Login - Kikao',
@@ -30,12 +32,15 @@ async function login_user() {
     email: data.value?.user?.email,
   }
   try {
-    await axios.post(BASE_URL, body_data, {
+    const data = await axios.post(BASE_URL, body_data, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    toast.success('Account successfully saved')
+
+    window.localStorage.setItem('kikao_token', data.data.access_token)
+    userStore.updateUser(data.data.user)
+    toast.success('Login was Successful')
   }
   catch (error) {
     handleError(error)
@@ -49,9 +54,14 @@ async function login_user() {
   <div v-if="status === 'unauthenticated'" class="h-[500px]">
     <div class="w-full flex flex-col items-center justify-center pt-46 text-[14px] leading-6 text-black md:mx-auto md:w-[400px] md:px-0">
       <div class="w-full flex items-center justify-center pb-6">
-        <h1 class="text-3xl font-semibold">
-          Log in to Kikao
-        </h1>
+        <div>
+          <h1 class="text-center text-3xl font-semibold">
+            Log in to Kikao
+          </h1>
+          <p class="b_text">
+            Connect with great local businesses
+          </p>
+        </div>
       </div>
       <button
         type="submit"

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import NextIcon from '@/components/icons/NextIcon.vue'
 import PreviousIcon from '@/components/icons/PreviousIcon.vue'
+import { useReviewStore } from '@/store/reviews'
+import { isBusinessOpen } from '@/utils/index'
 
-import type { Business } from '@/types'
+import type { Business, Review } from '@/types'
 
 const props = withDefaults(
   defineProps<{
@@ -10,8 +12,13 @@ const props = withDefaults(
   }>(),
   {},
 )
+const reviewStore = useReviewStore()
 const imageIndex = ref<number>(0)
 const showPrevNext = ref<boolean>(false)
+const business_reviews = computed(() => {
+  const all_review = reviewStore.$state.reviews
+  return all_review.filter((review: Review) => review.business_id === props.business.id)
+})
 
 // methods
 function handleNextImage() {
@@ -125,10 +132,10 @@ function handlePreviousImage() {
               <div class="flex items-center justify-between gap-x-3 truncate py-1 text-[14px] text-gray-500">
                 <div class="flex items-center gap-x-2">
                   <p class="truncate text-[16px] font-medium text-black">
-                    {{ business.reviews > 1 ? business.reviews : 0 }}
+                    {{ business_reviews.length > 0 ? business_reviews.length : 0 }}
                   </p>
                   <p class="text-center text-base font-light text-gray-500 dark:text-gray-400">
-                    {{ business.reviews > 1 ? `Reviews` : `Review` }}
+                    {{ business_reviews.length > 1 ? `Reviews` : `Review` }}
                   </p>
                 </div>
                 <div class="flex items-center gap-x-2 truncate text-[16px] text-gray-500">
@@ -136,9 +143,9 @@ function handlePreviousImage() {
                   <IconsDoorClosed v-else class="h-5 w-5" />
                   <p
                     class="text-base font-light"
-                    :class="business.opening ? ` text-green-500` : ` text-red-500`"
+                    :class="isBusinessOpen(business.opening_hours) ? ` text-green-500` : ` text-red-500`"
                   >
-                    {{ business.opening ? `Open now` : `Closed` }}
+                    {{ isBusinessOpen(business.opening_hours) ? `Open now` : `Closed` }}
                   </p>
                 </div>
               </div>

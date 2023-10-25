@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import LogoIcon from '@/components/icons/LogoIcon.vue'
 import KenyanFlag from '@/components/icons/KenyanFlag.vue'
+import HeaderDropdown from '@/components/HeaderDropdown.vue'
 
 const { status, data, signOut } = useAuth()
 
 const route = useRoute()
-
-const showdropdown = ref(false)
 
 const isExcluded = computed(() => {
   const excludedPaths = ['/register', '/blog', '/about', '/login']
@@ -18,10 +17,6 @@ const isExcluded = computed(() => {
 
   return false
 })
-
-function handleShow() {
-  showdropdown.value = !showdropdown.value
-}
 </script>
 
 <template>
@@ -46,21 +41,35 @@ function handleShow() {
           Businesses
         </router-link>
         <router-link
-          v-if="!isExcluded && status === 'unauthenticated'"
-          to="/reviews" class="hidden flex items-center justify-center gap-x-2 hover:text-gray-900 hover:underline hover:underline-offset-8"
-          :class="$route.path === '/reviews' ? ` text-gray-900 underline underline-offset-8` : ` `"
-        >
-          <IconsPen />
-          <p>Review</p>
-        </router-link>
-        <router-link
           v-if="status === 'authenticated' && route.path !== '/register'"
-          to="/register" class="flex items-center justify-center gap-x-2 btn"
+          to="/register" class="hidden flex items-center justify-center gap-x-2 lg:block btn"
           :class="$route.path === '/register' ? ` bg-gray-100 ` : ` `"
         >
-          <p> <IconsAddIcon class="mr-1 inline text-black" />Add a business</p>
+          <p><IconsAddIcon class="mr-1 inline text-black" />Add a business</p>
         </router-link>
+        <HeaderDropdown v-if="status === 'authenticated'" placement="right">
+          <!-- Button content -->
+          <template #button>
+            <img v-if="data?.user?.image" class="mr-3 h-10 w-10 border-2 border-gray-600 rounded-full" :src="data.user.image" :alt="`${data.user.name} avatar image`">
 
+            <span class="mr-2">{{ data.user.name }}</span>
+
+            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M4.516 7.548c.436-.446 1.043-.481 1.576 0L10 11.295l3.908-3.747c.533-.481 1.141-.446 1.574 0 .436.445.408 1.197 0 1.615-.406.418-4.695 4.502-4.695 4.502a1.095 1.095 0 0 1-1.576 0S4.924 9.581 4.516 9.163c-.409-.418-.436-1.17 0-1.615z" />
+            </svg>
+          </template>
+
+          <!-- Opened dropdown content -->
+          <template #content>
+            <a class="my-1 w-full flex items-center justify-between rounded px-2 py-1 hover:bg-indigo-600 hover:text-white" href="#">Profile</a>
+            <a class="my-1 w-full flex items-center justify-between rounded px-2 py-1 hover:bg-indigo-600 hover:text-white" href="#">Settings</a>
+            <a class="my-1 w-full flex items-center justify-between rounded px-2 py-1 hover:bg-indigo-600 hover:text-white" href="#">Help</a>
+
+            <hr>
+
+            <a class="my-1 w-full flex items-center justify-between rounded px-2 py-1 hover:bg-red-600 hover:text-white" @click="signOut()">Logout</a>
+          </template>
+        </HeaderDropdown>
         <router-link
           v-if="status === 'unauthenticated' && route.path !== '/signup' && route.path !== '/login'"
           class="btn"
@@ -75,23 +84,6 @@ function handleShow() {
         >
           Sign Up
         </router-link>
-        <div v-if="status === 'authenticated'" class="dropdown relative inline-block">
-          <button class="inline-flex items-center text-center text-sm font-medium" type="button" @click="handleShow">
-            <img v-if="data?.user?.image" :src="data.user.image" :alt="`${data.user.name} avatar image`" srcset="" class="avatar_icon">
-            <svg class="ml-2.5 h-2.5 w-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-            </svg>
-          </button>
-          <!-- Dropdown menu -->
-          <ul class="dropdown-menu absolute hidden rounded-md pt-2 text-gray-700">
-            <li class="">
-              <a class="whitespace-no-wrap block w-full cursor-pointer rounded-t bg-gray-100 px-9 py-3 hover:bg-gray-400" href="#">Profile</a>
-            </li>
-            <li class="">
-              <a class="whitespace-no-wrap block w-full cursor-pointer bg-gray-100 px-9 py-3 hover:bg-red-400" @click="signOut()">Logout</a>
-            </li>
-          </ul>
-        </div>
         <div>
           <KenyanFlag class="h-5 w-5 rounded-md" />
         </div>

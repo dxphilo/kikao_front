@@ -6,7 +6,7 @@ import CheckCircleIcon from './icons/CheckCircleIcon.vue'
   <div class="mx-auto w-3/5">
     <div class="py-10">
       <h1 class="header_text">
-        Why you should join us
+        Why you should join Kikao
       </h1>
       <p class="text-center b_text">
         Let your customers be your best brand ambassadors

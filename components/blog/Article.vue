@@ -38,7 +38,7 @@ function convertDate(date: string | number) {
               </p>
             </div>
 
-            <h4 class="!important whitespace-pre-line py-2 text-2xl font-bold leading-9 tracking-wide text-[#222222]">
+            <h4 class="!important whitespace-pre-line py-2 text-xl font-semibold leading-9 tracking-wide text-[#222222]">
               {{ article.title }}
             </h4>
             <div class="flex items-center gap-x-4 pb-1 pt-2 font-normal text-gray-500">

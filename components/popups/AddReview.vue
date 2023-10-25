@@ -4,11 +4,13 @@ import axios from 'axios'
 import PhotosIcon from '@/components/icons/PhotosIcon.vue'
 import Delete from '@/components/icons/Delete.vue'
 import { useUserStore } from '@/store/user'
+import { useReviewStore } from '@/store/reviews'
 
 const emit = defineEmits(['close'])
 
 const route = useRoute()
 const userStore = useUserStore()
+const userReview = useReviewStore()
 const config = useRuntimeConfig()
 const toast = useToast()
 const rating = ref(0)
@@ -81,7 +83,7 @@ async function submitReview() {
     return toast.info(`Your review should be at least 350 characters, write ${350 - text.value.length} more characters`)
 
   loading.value = true
-  const access_token = userStore.$state.user_info.access_token
+  const access_token = window.localStorage.getItem('kikao_token')
   const headers = {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -106,11 +108,26 @@ async function submitReview() {
 
     const response = await axios.post(`${review_url}`, formData, headers)
     const data = await response.data
-    if (data.status === '201') {
+    if (data.status === '201')
       toast.success('Your review for this business has been published')
-      resetFormValues()
-      emit('close')
+
+    const review: Review = {
+      id: 1,
+      name: userStore.$state.user_info.name,
+      user_id: userStore.$state.user_info.name,
+      text: text.value,
+      rating: rating.value,
+      createdAt: new Date().toLocaleString(),
+      review: text.value,
+      business_id: business_id.value,
+      user: {
+        full_name: userStore.$state.user_info.name,
+        photo: userStore.$state.user_info.photo,
+      },
     }
+    userReview.updateReview(review, business_id.value)
+    resetFormValues()
+    emit('close')
   }
   catch (error) {
     handleError(error)

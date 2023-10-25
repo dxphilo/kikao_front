@@ -135,9 +135,9 @@ function handlePreviousImage() {
     </div>
     <div class="pt-2">
       <p class="normal_text">
-        {{ showFullText ? `${review.text}` : `${review.text.slice(0, 350)}...` }}
-        <span v-if="review.text.length > 350" class="cursor-pointer text-sky-400 underline underline-offset-4 hover:text-sky-600" @click="toggleText()"> {{ showFullText ? `Show less` : `Read more` }}</span>
+        {{ showFullText ? review.text : `${review.text.slice(0, 350)}...` }}
       </p>
+      <span v-if="review.text.length > 350" class="cursor-pointer text-sky-400 underline underline-offset-4 hover:text-sky-600" @click="toggleText()"> {{ showFullText ? `Show less` : `Read more` }}</span>
       <div class="flex justify-between py-5">
         <div class="flex items-center gap-x-3">
           <button v-for="(reaction, index) in reactions" :key="index" class="flex items-center gap-x-2 btn_reaction">

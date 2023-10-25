@@ -3,7 +3,14 @@ import { useReviewStore } from '~/store/reviews'
 
 const reviewStore = useReviewStore()
 
-const reviewers = computed(() => reviewStore.$state.reviews)
+const all_reviews = computed(() => reviewStore.$state.reviews)
+const reviewers = computed(() => {
+  const reviews = reviewStore.$state.reviews
+
+  const filteredReviews = reviews.length > 10 ? reviews.slice(0, 10) : reviews
+
+  return filteredReviews
+})
 </script>
 
 <template>
@@ -17,7 +24,6 @@ const reviewers = computed(() => reviewStore.$state.reviews)
           Services, and Businesses
         </h1>
       </div>
-
       <p class="text-center b_text">
         Let your customers be your best brand ambassadors with reviews
       </p>
@@ -26,7 +32,7 @@ const reviewers = computed(() => reviewStore.$state.reviews)
           <h4 class="font-medium text-slate-900">
             Reviewers
           </h4>
-          <span class="rounded-full bg-slate-200 px-2 py-1 text-xs font-semibold text-slate-700">{{ reviewers.length }}+</span>
+          <span class="rounded-full bg-slate-200 px-2 py-1 text-xs font-semibold text-slate-700">{{ all_reviews.length }}+</span>
         </div>
         <div class="flex overflow-hidden py-3 -space-x-2">
           <img v-for="(reviewer, index) in reviewers" :key="index" class="inline-block avatar_icon ring-2 ring-white" :src="reviewer.user.photo" :alt="`${reviewer.user.full_name} reviewer photo`">
