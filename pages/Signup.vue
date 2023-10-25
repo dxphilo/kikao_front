@@ -110,13 +110,14 @@ async function send_data() {
         </div>
       </div>
     </div>
-    <div class="flex items-center justify-center gap-x-4 py-20 text-center">
-      <a href="/terms" class="text_footer_link">
-        Terms of use
-      </a>|
-      <a href="privacy" class="text_footer_link">
-        Privacy policy
-      </a>
+    <div class="mx-auto w-80 flex items-center justify-center gap-x-4 py-20 text-center">
+      <p class="text-sm font-light leading-5 tracking-wide text-gray">
+        By continuing, you agree to Kikao’s <a href="/terms" class="terms">
+          Terms of Service
+        </a>and acknowledge Kikao’s <a href="privacy" class="terms">
+          Privacy Policy.
+        </a>
+      </p>
     </div>
   </div>
 </template>

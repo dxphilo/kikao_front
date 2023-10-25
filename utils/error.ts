@@ -11,6 +11,9 @@ export function handleError(error: any) {
       toast.error('Not found: The requested resource was not found.')
     }
     else if (statusCode === 403) {
+      if (error.response.data.message)
+        toast.warning(error.response.data.message)
+
       toast.warning(error.response.data.detail)
     }
     else if (statusCode === 429) {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useHead } from 'unhead'
-import { amenities } from '~/config/amenities'
 import { useReviewStore } from '~/store/reviews'
 import { useBusinessesStore } from '~/store/businesses'
+import { amenities } from '~/config/amenities'
 
 const route = useRoute()
 const reviewStore = useReviewStore()
@@ -17,8 +17,8 @@ useHead({
   title: `${business.value ? business.value.name : 'Business'} - Kikao`,
 })
 
-if (business_id)
-  reviewStore.getBusinessReviews(String(business_id.value))
+const showShareBusiness = ref<boolean>(false)
+const link = ref(window.location.href)
 
 const reviews = computed(() => reviewStore.$state.business_review[`${route.params.id}`])
 const amenitiesFromDB = computed(() => {
@@ -26,12 +26,13 @@ const amenitiesFromDB = computed(() => {
 })
 
 businessesStore.fetchBusiness(route.params.id as string)
+reviewStore.getBusinessReviews(route.params.id as string)
 </script>
 
 <template>
   <div v-if="business" class="py-10">
     <section
-      class="w-ful mx-auto pb-4 antialiased md:w-3/5"
+      class="mx-auto w-full pb-4 antialiased md:w-3/5"
     >
       <h2 class="text-2xl font-semibold text-gray-900">
         {{ business.name }}
@@ -44,7 +45,7 @@ businessesStore.fetchBusiness(route.params.id as string)
           </p>
         </div>
         <div class="flex items-center gap-x-3">
-          <p class="flex cursor-pointer items-center gap-x-2 rounded-lg px-3 py-1 text-sm underline underline-offset-6 hover:bg-gray-100">
+          <p class="flex cursor-pointer items-center gap-x-2 rounded-lg px-3 py-1 text-sm underline underline-offset-6 hover:bg-gray-100" @click="showShareBusiness = true">
             <IconsShareIcon class="icon" />
             Share
           </p>
@@ -56,7 +57,8 @@ businessesStore.fetchBusiness(route.params.id as string)
       </div>
       <!-- images sesction -->
       <div class="my-4 w-full border border-gray-300">
-        <img :src="business.images[0]" class="h-[400px] w-full rounded-lg bg-cover object-cover" alt="">
+        <!-- TODO: find a better way to diplay all the business images -->
+        <img :src="business.images[0]" class="h-[450px] w-full bg-cover object-cover" alt="">
       </div>
       <!-- amenities setion -->
       <div class="pt-6">
@@ -93,7 +95,7 @@ businessesStore.fetchBusiness(route.params.id as string)
       </div>
     </section>
   </div>
-  <div v-else>
+  <div v-else class="py-50 text-center">
     <p>loading ...</p>
   </div>
   <div class="flex flex-col text-base font-semibold">
@@ -103,6 +105,7 @@ businessesStore.fetchBusiness(route.params.id as string)
     <Teleport to="body">
       <PopupsBusinessImages v-if="showPopup" :image="business.images" @close="showPopup = !showPopup" />
       <PopupsAddReview v-if="showAddReviewPopup" @close="showAddReviewPopup = !showAddReviewPopup" />
+      <PopupsShareBusiness v-if="showShareBusiness" :link="link" :business="business" @close="showShareBusiness = !showShareBusiness" />
     </Teleport>
   </div>
 </template>

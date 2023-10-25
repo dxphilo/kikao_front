@@ -15,7 +15,7 @@ defineEmits(['close'])
 
 const toast = useToast()
 
-const reviewLink = ref<string>('prop.review.id')
+const reviewLink = ref<string>(window.location.href)
 
 function copyReviewLink() {
   if (reviewLink.value === '')
@@ -32,11 +32,12 @@ function copyReviewLink() {
 }
 
 function twitterShare() {
+  // https:// twitter.com/intent/tweet?text=I%20just%20published%20Rust%20Challenge%3A%20Palindrome%20Checker%20https%3A%2F%2Flink.medium.com%2FdKEcly8p0Db
   window.open(
     sanitizeUrl(
-			`https://twitter.com/share?url=${encodeURIComponent(
-				reviewLink.value.toString(),
-			)}&hashtags=#kikao&text=Kikao Business Review by ${prop.review.name}`,
+    `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+      reviewLink.value.toString(),
+    )}&hashtags=kikao&text=Kikao Business Review by ${prop.review.user.full_name} - ${prop.review.text.slice(0, 150)}...`,
     ),
   )
 }
@@ -66,7 +67,7 @@ function mailShare() {
 }
 
 function shareOnWhatsApp() {
-  const whatsappUrl = `whatsapp://send?text=${prop.review.text}%20${encodeURIComponent(reviewLink.value)}`
+  const whatsappUrl = `https://wa.me/?text=${prop.review.text}%20${encodeURIComponent(reviewLink.value)}`
   window.location.href = whatsappUrl
 }
 
@@ -79,12 +80,14 @@ function shareOnPinterest() {
   const pinterestUrl = `http://pinterest.com/pin/create/link/?url=${encodeURIComponent(reviewLink.value)}`
   window.open(pinterestUrl, '_blank')
 }
+
+console.log(prop.review)
 </script>
 
 <template>
   <!-- Small Modal -->
   <div
-    class="popup modal-animation fixed bottom-0 left-0 right-0 top-0 z-30 h-screen w-full flex flex-col items-center justify-center bg-gray-800 bg-opacity-50 py-16 dark:bg-opacity-50"
+    class="popup modal-animation fixed bottom-0 left-0 right-0 top-0 z-30 h-screen w-full flex flex-col items-center justify-center bg-gray-800 bg-opacity-80 py-16 dark:bg-opacity-80"
     @click.self="$emit(`close`)"
   >
     <div class="w-full flex items-center justify-center rounded-lg bg-white px-5 md:w-2/5">
@@ -134,7 +137,7 @@ function shareOnPinterest() {
                 </div>
               </div>
               <div class="pt-2">
-                <p class="normal_text">
+                <p class="w-full whitespace-normal normal_text">
                   {{ review.text.slice(0, 300) }}
                 </p>
               </div>

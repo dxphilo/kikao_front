@@ -30,8 +30,5 @@ const articles: Article[] = await queryContent('blog').sort({ createdAt: 1 }).fi
         />
       </div>
     </section>
-    <div>
-      <Hr />
-    </div>
   </div>
 </template>

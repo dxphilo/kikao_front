@@ -125,3 +125,26 @@ export default function readingTime(content: any) {
 
   return minutes
 }
+
+export function isBusinessOpen(openingHours: string[]): boolean {
+  if (openingHours.length !== 2)
+    return false
+
+  const [openingTime, closingTime] = openingHours
+  const now = new Date()
+  const currentHour = now.getHours()
+  const currentMinute = now.getMinutes()
+  const currentTime = currentHour * 60 + currentMinute
+
+  const [openingHour, openingMinute] = openingTime.split(':').map(Number)
+  const openingTimeInMinutes = openingHour * 60 + openingMinute
+
+  const [closingHour, closingMinute] = closingTime.split(':').map(Number)
+  const closingTimeInMinutes = closingHour * 60 + closingMinute
+
+  if (currentTime >= openingTimeInMinutes && currentTime <= closingTimeInMinutes)
+    return true
+
+  else
+    return false
+}

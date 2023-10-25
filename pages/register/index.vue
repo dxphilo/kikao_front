@@ -47,7 +47,7 @@ const localBusiness = ref({
   reviews: 0,
   reviewScore: 0,
   location: location.value,
-  opening: true,
+  opening_hours: [openingHours.value, closingHours.value],
   images: previewImages.value,
   businessDescription: businessDescription.value,
   category: businesstype.value,
@@ -56,7 +56,7 @@ const localBusiness = ref({
   telephoneNumber: telephoneNumber.value,
 })
 
-watch([businessName, county, location, previewImages, businessDescription, businesstype, telephoneNumber], () => {
+watch([businessName, county, location, previewImages, businessDescription, businesstype, telephoneNumber, openingHours, closingHours], () => {
   localBusiness.value = {
     id: 0,
     name: businessName.value,
@@ -64,7 +64,7 @@ watch([businessName, county, location, previewImages, businessDescription, busin
     reviews: 0,
     reviewScore: 0,
     location: location.value,
-    opening: true,
+    opening_hours: [openingHours.value, closingHours.value],
     images: previewImages.value,
     businessDescription: businessDescription.value,
     category: businesstype.value,
@@ -246,7 +246,7 @@ function handleBack() {
 }
 
 async function publish() {
-  const access_token = userStore.$state.user_info.access_token
+  const access_token = window.localStorage.getItem('kikao_token')
   const headers = {
     headers: {
       'Content-Type': 'multipart/form-data',

@@ -32,7 +32,7 @@ export const useBusinessesStore = defineStore('businessesStore', {
       try {
         const response = await axios.get(`${config.public.BASE_URL}/businesses/${business_id}`)
         const data = await response.data
-        this.$state.business_info[business_id] = data
+        this.$state.business_info[business_id] = data.data
       }
       catch (error) {
         handleError(error)
