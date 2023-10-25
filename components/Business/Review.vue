@@ -32,7 +32,6 @@ function handlePreviousImage() {
   if (imageIndex.value > 0)
     imageIndex.value--
 }
-console.log(props.review.text.length)
 </script>
 
 <template>

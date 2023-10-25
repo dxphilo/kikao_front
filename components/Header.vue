@@ -7,8 +7,6 @@ const { status, data, signOut } = useAuth()
 
 const route = useRoute()
 
-const showdropdown = ref(false)
-
 const isExcluded = computed(() => {
   const excludedPaths = ['/register', '/blog', '/about', '/login']
   const currentPath = route.path

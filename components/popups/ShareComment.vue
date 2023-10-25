@@ -80,8 +80,6 @@ function shareOnPinterest() {
   const pinterestUrl = `http://pinterest.com/pin/create/link/?url=${encodeURIComponent(reviewLink.value)}`
   window.open(pinterestUrl, '_blank')
 }
-
-console.log(prop.review)
 </script>
 
 <template>
