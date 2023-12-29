@@ -1,17 +1,5 @@
 <script  setup lang="ts">
-import { useReviewStore } from '~/store/reviews'
-
-const reviewStore = useReviewStore()
-
-const all_reviews = computed(() => reviewStore.$state.reviews)
 const image_slider = ref<string>('')
-const reviewers = computed(() => {
-  const reviews = reviewStore.$state.reviews
-
-  const filteredReviews = reviews.length > 10 ? reviews.slice(0, 10) : reviews
-
-  return filteredReviews
-})
 const images = [
   '/images/artem-beliaikin-jt9Lnsmq-3Y-unsplash.jpg',
   '/images/clark-street-mercantile-qnKhZJPKFD8-unsplash.jpg',
