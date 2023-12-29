@@ -8,9 +8,9 @@ jobs:
   install-dependencies:
     runs-on: ubuntu-latest
     container:
-      image: node:18-alpine
+      image: node:18
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: install tar (for actions/cache)
         run: apk add --no-cache tar
@@ -18,7 +18,9 @@ jobs:
       # use the cached node_modules -- this is only used to speed up the install-dependencies job
       - uses: actions/cache@v2
         with:
-          path: node_modules
+          path: |
+            node_modules
+            ~/.pnpm-store
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: install git
@@ -39,9 +41,9 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     container:
-      image: node:18-alpine
+      image: node:18
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - uses: actions/download-artifact@v2
         with:
@@ -56,9 +58,9 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     container:
-      image: node:18-alpine
+      image: node:18
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - uses: actions/download-artifact@v2
         with:
