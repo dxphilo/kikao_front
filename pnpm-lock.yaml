@@ -8,6 +8,9 @@ dependencies:
   '@braintree/sanitize-url':
     specifier: ^6.0.3
     version: 6.0.3
+  '@vercel/speed-insights':
+    specifier: ^1.0.2
+    version: 1.0.2
   axios:
     specifier: ^1.4.0
     version: 1.4.0
@@ -3886,6 +3889,11 @@ packages:
       - encoding
       - supports-color
     dev: true
+
+  /@vercel/speed-insights@1.0.2:
+    resolution: {integrity: sha512-y5HWeB6RmlyVYxJAMrjiDEz8qAIy2cit0fhBq+MD78WaUwQvuBnQlX4+5MuwVTWi46bV3klaRMq83u9zUy1KOg==}
+    requiresBuild: true
+    dev: false
 
   /@vite-pwa/nuxt@0.0.7(@nuxt/kit@3.7.4)(vite-plugin-pwa@0.14.7):
     resolution: {integrity: sha512-7bUTHbameF4GMLQjuyICB761YTC2/Zp6s+rd3hz63Q8lUHP/WUkvOhkoqAoA7CrRPrM85QDeOJKBEvailDb5+w==}
