@@ -8,12 +8,11 @@ jobs:
   install-dependencies:
     runs-on: ubuntu-latest
     container:
-      image: node:18
+      image: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-18
     steps:
       - uses: actions/checkout@v2
 
-      - name: install tar (for actions/cache)
-        run: apk add --no-cache tar
+      # Skip installing tar, as it's not needed in this image
 
       # use the cached node_modules -- this is only used to speed up the install-dependencies job
       - uses: actions/cache@v2
@@ -23,8 +22,7 @@ jobs:
             ~/.pnpm-store
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
-      - name: install git
-        run: apk add --no-cache git
+      # Skip installing git, as it's included in the base image
 
       - name: pnpm install
         run: pnpm install
@@ -41,7 +39,7 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     container:
-      image: node:18
+      image: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-18
     steps:
       - uses: actions/checkout@v2
 
@@ -58,7 +56,7 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     container:
-      image: node:18
+      image: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-18
     steps:
       - uses: actions/checkout@v2
 
