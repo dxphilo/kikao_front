@@ -8,7 +8,7 @@ jobs:
   install-dependencies:
     runs-on: ubuntu-latest
     container:
-      image: node:20-alpine
+      image: node:18-alpine
     steps:
       - uses: actions/checkout@v1
 
@@ -19,13 +19,13 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
 
       - name: install git
         run: apk add --no-cache git
 
-      - name: yarn install
-        run: yarn install
+      - name: pnpm install
+        run: pnpm install
 
       # this copy of node_modules will be used for the rest of the workflow
       - name: compress node_modules
@@ -39,7 +39,7 @@ jobs:
     needs: install-dependencies
     runs-on: ubuntu-latest
     container:
-      image: node:16-alpine
+      image: node:18-alpine
     steps:
       - uses: actions/checkout@v1
 
@@ -50,13 +50,13 @@ jobs:
         run: tar -xzf node_modules.tar.gz
 
       - name: lint
-        run: yarn lint
+        run: pnpm lint
 
   build:
     needs: install-dependencies
     runs-on: ubuntu-latest
     container:
-      image: node:16-alpine
+      image: node:18-alpine
     steps:
       - uses: actions/checkout@v1
 
@@ -67,4 +67,4 @@ jobs:
         run: tar -xzf node_modules.tar.gz
 
       - name: build
-        run: yarn build
+        run: pnpm build
