@@ -34,7 +34,7 @@ function handlePreviousImage() {
 
 <template>
   <transition name="fade">
-    <div class="my-4 w-full overflow-hidden bg-white md:w-[330px]">
+    <div class="my-4 w-full overflow-hidden bg-white md:w-[320px]">
       <div
         class="mx-auto w-full"
       >
@@ -45,15 +45,14 @@ function handlePreviousImage() {
           @mouseenter="showPrevNext = true"
           @mouseleave="showPrevNext = false"
         >
-          <transition name="fade">
+          <transition name="fade" mode="out-in">
             <img
+              :key="imageIndex"
               :src="props.business.images[imageIndex]"
               alt="business listing image from kikao"
               loading="eager"
               fetchpriority="true"
-              class="h-[420px] w-full border border-gray-200 rounded-xl bg-cover object-cover object-center duration-700 ease-in-out md:h-[300px] hover:cursor-pointer"
-              width="280"
-              height="280"
+              class="h-[247px] w-full border border-gray-200 rounded-xl bg-cover object-cover object-center duration-700 ease-in-out hover:cursor-pointer"
             >
           </transition>
           <!-- Slider indicators -->
@@ -120,22 +119,28 @@ function handlePreviousImage() {
                   <span class="font-medium text-gray-800">{{ business.reviewScore }}</span>
                 </div>
               </div>
-              <div class="flex flex-row justify-between py-1">
-                <p class="flex flex-row items-center gap-x-2 capitalize normal_text">
+              <div class="flex flex-row justify-between py-1 uppercase">
+                <p class="flex flex-row items-center gap-x-2 normal_text">
                   <IconsLocation class="icon text-gray-900" />
                   {{ business.town }}
                 </p>
-                <p class="capitalize normal_text">
+                <p class="normal_text">
                   {{ business.category }}
                 </p>
               </div>
+              <!-- Here is the tags of the business section -->
+              <div class="flex gap-x-2 py-2">
+                <div v-for="(tag, idx) in business.amenities.slice(0, 2)" :key="idx" class="inline-block border rounded-md bg-gray-100 px-2 text-xs uppercase normal_text">
+                  {{ tag }}
+                </div>
+              </div>
               <div class="flex items-center justify-between gap-x-3 truncate py-1 text-[14px] text-gray-500">
-                <div class="flex items-center gap-x-2">
-                  <p class="truncate text-[16px] font-medium text-black">
+                <div class="flex items-center gap-x-1">
+                  (<p class="truncate text-[14px] font-medium text-black">
                     {{ business_reviews.length > 0 ? business_reviews.length : 0 }}
                   </p>
                   <p class="text-center text-base font-light text-gray-500 dark:text-gray-400">
-                    {{ business_reviews.length > 1 ? `Reviews` : `Review` }}
+                    {{ business_reviews.length > 1 ? `Reviews` : `Review` }})
                   </p>
                 </div>
                 <div class="flex items-center gap-x-2 truncate text-[16px] text-gray-500">

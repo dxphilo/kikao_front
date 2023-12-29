@@ -17,6 +17,11 @@ const isExcluded = computed(() => {
 
   return false
 })
+
+function logOut() {
+  signOut()
+  window.localStorage.removeItem('kikao_token')
+}
 </script>
 
 <template>
@@ -67,7 +72,7 @@ const isExcluded = computed(() => {
 
             <hr>
 
-            <a class="my-1 w-full flex items-center justify-between rounded px-2 py-1 hover:bg-red-600 hover:text-white" @click="signOut()">Logout</a>
+            <a class="my-1 w-full flex items-center justify-between rounded px-2 py-1 hover:bg-red-600 hover:text-white" @click="logOut()">Logout</a>
           </template>
         </HeaderDropdown>
         <router-link

@@ -58,7 +58,7 @@ reviewStore.getBusinessReviews(route.params.id as string)
       <!-- images sesction -->
       <div class="my-4 w-full border border-gray-300">
         <!-- TODO: find a better way to diplay all the business images -->
-        <img :src="business.images[0]" class="h-[450px] w-full bg-cover object-cover" alt="">
+        <img :src="business.images[0]" class="h-[400px] w-full bg-cover object-cover" alt="">
       </div>
       <!-- amenities setion -->
       <div class="pt-6">
@@ -66,10 +66,8 @@ reviewStore.getBusinessReviews(route.params.id as string)
           What this business offers
         </p>
         <div class="flex flex-wrap items-center gap-x-10 gap-y-4 py-10">
-          <div v-for="(amenity, index) in amenitiesFromDB" :key="index" class="flex flex-row items-center justify-center gap-x-4 b_card">
-            <div>
-              <component :is="amenity.iconComponent" class="h-9 w-9" />
-            </div>
+          <div v-for="(amenity, index) in amenitiesFromDB" :key="index" class="flex items-center justify-center gap-x-2 text-center b_card">
+            <component :is="amenity.iconComponent" class="h-7 w-7" />
             <p class="pt-3 normal_text">
               {{ amenity.name }}
             </p>

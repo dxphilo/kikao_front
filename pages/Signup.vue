@@ -56,16 +56,15 @@ async function send_data() {
         'Content-Type': 'application/json',
       },
     })
-
-    window.localStorage.setItem('kikao_token', res.data.access_token)
+    window.localStorage.setItem('kikao_token', res.data.user.access_token)
     toast.success(`Hi ${res.data.user.name}, your account was successfully created`)
     userStore.updateUser(res.data.user)
+    window.localStorage.removeItem('phone_number')
+    router.push('/')
   }
   catch (error) {
     handleError(error)
   }
-  window.localStorage.removeItem('phone_number')
-  router.push('/')
 }
 </script>
 
