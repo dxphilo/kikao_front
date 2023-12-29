@@ -24,8 +24,6 @@ const reviews = computed(() => reviewStore.$state.business_review[`${route.param
 const amenitiesFromDB = computed(() => {
   return amenities.filter(amenity => business.value.amenities.includes(amenity.name))
 })
-
-businessesStore.fetchBusiness(route.params.id as string)
 reviewStore.getBusinessReviews(route.params.id as string)
 </script>
 
