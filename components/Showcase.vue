@@ -1,22 +1,33 @@
 <script  setup lang="ts">
-import { useReviewStore } from '~/store/reviews'
+const image_slider = ref<string>('')
+const images = [
+  '/images/artem-beliaikin-jt9Lnsmq-3Y-unsplash.jpg',
+  '/images/clark-street-mercantile-qnKhZJPKFD8-unsplash.jpg',
+  '/images/nrd-D6Tu_L3chLE-unsplash.jpg',
+  '/images/qui-nguyen-S6atLH5Rf0U-unsplash.jpg',
+  'heather-m-edwards-iMER-LjhSlM-unsplash.jpg',
+]
+function imageSliders() {
+  const randomIndex = Math.floor(Math.random() * images.length)
+  image_slider.value = images[randomIndex]
+}
+onMounted(() => {
+  // Initial call
+  imageSliders()
 
-const reviewStore = useReviewStore()
-
-const all_reviews = computed(() => reviewStore.$state.reviews)
-const reviewers = computed(() => {
-  const reviews = reviewStore.$state.reviews
-
-  const filteredReviews = reviews.length > 10 ? reviews.slice(0, 10) : reviews
-
-  return filteredReviews
+  // Set up interval to change the image every 5 seconds
+  setInterval(() => {
+    imageSliders()
+  }, 5000)
 })
 </script>
 
 <template>
-  <div class="w-full flex object-cover">
-    <div class="mx-auto w-full pt-28 lg:w-3/5">
-      <div class="py-4 header_text">
+  <div class="relative h-[500px] w-full flex bg-cover bg-center object-cover" :style="`background-image: url('${image_slider}');`">
+    <!-- Overlay div for text readability -->
+    <div class="absolute inset-0 bg-black opacity-60" />
+    <div class="relative z-10 mx-auto w-full pt-28 text-white lg:w-3/5">
+      <div class="py-4 text-white header_text">
         <h1>
           Discover Great Products,
         </h1>
@@ -27,7 +38,7 @@ const reviewers = computed(() => {
       <p class="text-center b_text">
         Let your customers be your best brand ambassadors with reviews
       </p>
-      <div class="flex flex-col items-center justify-center gap-y-2 pt-6">
+      <!-- <div class="flex flex-col items-center justify-center gap-y-2 pt-6">
         <div class="flex items-center text-base space-x-2">
           <h4 class="font-medium text-slate-900">
             Reviewers
@@ -42,10 +53,10 @@ const reviewers = computed(() => {
             +{{ (2000 - reviewers.length).toLocaleString('en-US') }} others
           </p>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
-  <style scoped>
+<style scoped>
 </style>

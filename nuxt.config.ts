@@ -24,6 +24,7 @@ export default defineNuxtConfig({
       BASE_URL: process.env.NUXT_ENV_DOMAIN,
       GOOGLE_CLIENTID: process.env.GOOGLE_CLIENTID,
       GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+      PEXELS_API_KEY: process.env.PEXELS_API_KEY,
     },
   },
   content: {

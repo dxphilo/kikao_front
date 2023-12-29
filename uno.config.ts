@@ -18,7 +18,7 @@ export default defineConfig({
     ['text_footer_link', 'leading[5px] !important whitespace-pre-line text-center text-base hover:text-black hover:underline hover:underline-offset-7'],
     ['normal_text', 'text-base font-light text-gray-500 dark:text-gray-400'],
     ['b_text', 'leading[20px] !important whitespace-pre-line pt-4 text-[19px] font-light text-gray-500 md:text-left'],
-    ['b_card', 'w-[200px] border border-gray-200 rounded-lg py-7 hover:border-gray-900'],
+    ['b_card', 'w-[200px] border border-gray-200 rounded-lg py-6 hover:border-gray-900'],
     ['btn_reaction', 'border rounded-full bg-gray-100 px-3 py-1.5 text-center text-sm hover:bg-gray-200'],
     ['star', 'h-3.5 w-3.5'],
     ['icon', 'h-5 w-5'],

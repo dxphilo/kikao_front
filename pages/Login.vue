@@ -41,12 +41,12 @@ async function login_user() {
     window.localStorage.setItem('kikao_token', data.data.access_token)
     userStore.updateUser(data.data.user)
     toast.success('Login was Successful')
+    window.localStorage.removeItem('phone_number')
+    router.push('/')
   }
   catch (error) {
     handleError(error)
   }
-  window.localStorage.removeItem('phone_number')
-  router.push('/')
 }
 </script>
 
