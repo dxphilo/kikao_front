@@ -10,12 +10,12 @@ jobs:
     container:
       image: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-18
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # Skip installing tar, as it's not needed in this image
 
       # use the cached node_modules -- this is only used to speed up the install-dependencies job
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: |
             node_modules
@@ -30,7 +30,7 @@ jobs:
       # this copy of node_modules will be used for the rest of the workflow
       - name: compress node_modules
         run: tar -czf node_modules.tar.gz node_modules
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: node_modules.tar.gz
           path: node_modules.tar.gz
@@ -41,7 +41,7 @@ jobs:
     container:
       image: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-18
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: actions/download-artifact@v2
         with:
@@ -58,9 +58,9 @@ jobs:
     container:
       image: mcr.microsoft.com/vscode/devcontainers/javascript-node:0-18
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: node_modules.tar.gz
       - name: extract node_modules
