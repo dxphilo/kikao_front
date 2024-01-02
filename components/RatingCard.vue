@@ -109,7 +109,7 @@ function handlePreviousImage() {
           <router-link :to="`/shop/${business.id}`" class="hover:bg-gray-100">
             <div class="">
               <div class="flex items-center justify-between pt-1">
-                <p class="truncate pt-2 text-[16px] font-medium text-black">
+                <p class="truncate pt-2 text-[18px] font-medium text-black">
                   {{ props.business.name }}
                 </p>
                 <div class="flex items-center gap-x-.5">
@@ -119,28 +119,28 @@ function handlePreviousImage() {
                   <span class="font-medium text-gray-800">{{ business.reviewScore }}</span>
                 </div>
               </div>
-              <div class="flex flex-row justify-between py-1 uppercase">
-                <p class="flex flex-row items-center gap-x-2 normal_text">
+              <div class="flex flex-row justify-between py-2 uppercase">
+                <p class="flex flex-row items-center gap-x-2 case-normal normal_text">
                   <IconsLocation class="icon text-gray-900" />
                   {{ business.town }}
                 </p>
-                <p class="normal_text">
+                <p class="case-normal normal_text">
                   {{ business.category }}
                 </p>
               </div>
               <!-- Here is the tags of the business section -->
               <div class="flex gap-x-2 py-2">
-                <div v-for="(tag, idx) in business.amenities.slice(0, 2)" :key="idx" class="inline-block border rounded-md bg-gray-100 px-2 text-xs uppercase normal_text">
+                <div v-for="(tag, idx) in business.amenities.slice(0, 2)" :key="idx" class="inline-block border rounded-md bg-gray-100 px-2 py-1 text-xs uppercase normal_text">
                   {{ tag }}
                 </div>
               </div>
               <div class="flex items-center justify-between gap-x-3 truncate py-1 text-[14px] text-gray-500">
                 <div class="flex items-center gap-x-1">
-                  (<p class="truncate text-[14px] font-medium text-black">
+                  <p class="truncate text-[14px] font-medium text-black">
                     {{ business_reviews.length > 0 ? business_reviews.length : 0 }}
                   </p>
                   <p class="text-center text-base font-light text-gray-500 dark:text-gray-400">
-                    {{ business_reviews.length > 1 ? `Reviews` : `Review` }})
+                    {{ business_reviews.length > 1 ? `Reviews` : `Review` }}
                   </p>
                 </div>
                 <div class="flex items-center gap-x-2 truncate text-[16px] text-gray-500">
