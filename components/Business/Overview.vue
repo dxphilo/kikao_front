@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useHead } from 'unhead'
+import LoadingIcon from '@/components/icons/LoadingIcon.vue'
 import { useReviewStore } from '~/store/reviews'
 import { useBusinessesStore } from '~/store/businesses'
 import { amenities } from '~/config/amenities'
@@ -24,7 +25,12 @@ const reviews = computed(() => reviewStore.$state.business_review[`${route.param
 const amenitiesFromDB = computed(() => {
   return amenities.filter(amenity => business.value.amenities.includes(amenity.name))
 })
-reviewStore.getBusinessReviews(route.params.id as string)
+
+if (!reviews.value)
+  reviewStore.getBusinessReviews(route.params.id as string)
+
+if (!business.value)
+  businessesStore.fetchBusiness(route.params.id as string)
 </script>
 
 <template>
@@ -92,7 +98,7 @@ reviewStore.getBusinessReviews(route.params.id as string)
     </section>
   </div>
   <div v-else class="py-50 text-center">
-    <p>loading ...</p>
+    <LoadingIcon />
   </div>
   <div class="flex flex-col text-base font-semibold">
     <div>
